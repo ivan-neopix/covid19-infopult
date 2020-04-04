@@ -229,4 +229,7 @@ return [
 
     ],
 
+    'web_domain' => env('WEB_DOMAIN', 'infopult.rs'),
+    'admin_domain' => env('ADMIN_DOMAIN', 'admin.infopult.rs'),
+
 ];
