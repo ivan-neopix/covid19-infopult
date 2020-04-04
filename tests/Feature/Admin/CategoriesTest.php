@@ -91,4 +91,44 @@ class CategoriesTest extends TestCase
         $response->assertSessionHasErrors('name');
         $this->assertEquals('Old Category Name', $category->refresh()->name);
     }
+
+    /** @test */
+    public function admin_can_visit_the_create_category_page()
+    {
+        $response = $this->get("/categories/create");
+
+
+        $response->assertSuccessful();
+        $response->assertViewIs('admin.categories.create');
+    }
+
+    /** @test */
+    public function admin_can_create_a_category()
+    {
+        $data = ['name' => 'New Category'];
+
+
+        $response = $this->post("/categories", $data);
+
+
+        $response->assertRedirect("/categories");
+        $response->assertSessionHas('success');
+        $this->assertDatabaseHas('categories', [
+            'name' => 'New Category',
+        ]);
+    }
+
+    /** @test */
+    public function admin_cannot_create_a_category_without_specifying_a_name_for_it()
+    {
+        $data = ['name' => null];
+
+
+        $response = $this->from("/categories/create")->post("/categories", $data);
+
+
+        $response->assertRedirect("/categories/create");
+        $response->assertSessionHasErrors('name');
+        $this->assertDatabaseMissing('categories', []);
+    }
 }
