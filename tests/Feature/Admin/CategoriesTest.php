@@ -131,4 +131,20 @@ class CategoriesTest extends TestCase
         $response->assertSessionHasErrors('name');
         $this->assertDatabaseMissing('categories', []);
     }
+
+    /** @test */
+    public function admin_can_delete_category()
+    {
+        $category = factory(Category::class)->create();
+
+
+        $response = $this->delete("/categories/{$category->id}");
+
+
+        $response->assertRedirect("/categories");
+        $response->assertSessionHas('success');
+        $this->assertDatabaseMissing('categories', [
+            'id' => $category->id,
+        ]);
+    }
 }
