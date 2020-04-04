@@ -1,7 +1,7 @@
 @php
     /** @var \Illuminate\Pagination\LengthAwarePaginator|\App\Models\Post[] $posts */
 @endphp
-@extends('layouts.admin')
+@extends('layouts.admin', ['activeItem' => 'posts'])
 
 @section('page_title', 'Postovi')
 

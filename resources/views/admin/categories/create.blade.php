@@ -1,7 +1,7 @@
 @php
     /** @var \App\Models\Category $category */
 @endphp
-@extends('layouts.admin')
+@extends('layouts.admin', ['activeItem' => 'categories'])
 
 @section('page_title', 'Dodaj kategoriju')
 

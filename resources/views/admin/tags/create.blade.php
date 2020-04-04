@@ -1,7 +1,7 @@
 @php
     /** @var \App\Models\Tag $tag */
 @endphp
-@extends('layouts.admin')
+@extends('layouts.admin', ['activeItem' => 'tags'])
 
 @section('page_title', 'Dodaj tag')
 

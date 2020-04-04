@@ -1,7 +1,7 @@
 @php
     /** @var \Illuminate\Pagination\LengthAwarePaginator|\App\Models\Category[] $categories */
 @endphp
-@extends('layouts.admin')
+@extends('layouts.admin', ['activeItem' => 'categories'])
 
 @section('page_title', 'Kategorije')
 

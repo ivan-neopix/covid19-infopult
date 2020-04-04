@@ -44,6 +44,15 @@
                                 <a class="nav-link" href="{{ route('admin.login.show') }}">{{ __('Login') }}</a>
                             </li>
                         @else
+                            <li class="nav-item @if($activeItem == 'posts') active @endif">
+                                <a class="nav-link" href="{{ route('admin.posts.index') }}">Postovi</a>
+                            </li>
+                            <li class="nav-item @if($activeItem == 'categories') active @endif">
+                                <a class="nav-link" href="{{ route('admin.categories.index') }}">Kategorije</a>
+                            </li>
+                            <li class="nav-item @if($activeItem == 'tags') active @endif">
+                                <a class="nav-link" href="{{ route('admin.tags.index') }}">Tagovi</a>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>

@@ -2,7 +2,7 @@
     /** @var \Illuminate\Pagination\LengthAwarePaginator|\App\Models\Tag[] $tags */
     /** @var string $searchTerm */
 @endphp
-@extends('layouts.admin')
+@extends('layouts.admin', ['activeItem' => 'tags'])
 
 @section('page_title', 'Tagovi')
 

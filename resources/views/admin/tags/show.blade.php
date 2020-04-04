@@ -3,7 +3,7 @@
     /** @var \Illuminate\Pagination\LengthAwarePaginator|\App\Models\Post[] $posts */
     /** @var int $postsCount */
 @endphp
-@extends('layouts.admin')
+@extends('layouts.admin', ['activeItem' => 'tags'])
 
 @section('page_title', $tag->name)
 
