@@ -28,7 +28,7 @@ class CreatePostsTable extends Migration
                   ->on('categories')
                   ->onDelete('cascade');
 
-            $table->enum('status', [Post::STATUS_PENDING, Post::STATUS_ACCEPTED, Post::STATUS_DECLINED]);
+            $table->enum('status', [Post::STATUS_PENDING, Post::STATUS_ACCEPTED, Post::STATUS_DECLINED])->default(Post::STATUS_PENDING);
 
             $table->timestamps();
         });
