@@ -43,4 +43,52 @@ class CategoriesTest extends TestCase
         $response->assertViewIs('admin.categories.index');
         $response->assertSeeInOrder($catgories->splice(10)->pluck('name')->toArray());
     }
+
+    /** @test */
+    public function admin_can_visit_the_edit_category_page()
+    {
+        $category = factory(Category::class)->create();
+
+
+        $response = $this->get("/categories/{$category->id}/edit");
+
+
+        $response->assertSuccessful();
+        $response->assertViewIs('admin.categories.edit');
+        $this->assertTrue($category->is($response->viewData('category')));
+    }
+
+    /** @test */
+    public function admin_can_update_a_category()
+    {
+        $category = factory(Category::class)->create([
+            'name' => 'Old Category Name',
+         ]);
+
+
+        $response = $this->put("/categories/{$category->id}", [
+            'name' => 'New Category Name',
+        ]);
+
+
+        $response->assertRedirect("/categories");
+        $response->assertSessionHas('success');
+        $this->assertEquals('New Category Name', $category->refresh()->name);
+    }
+
+    /** @test */
+    public function admin_cannot_update_a_category_using_invalid_data()
+    {
+        $category = factory(Category::class)->create([
+            'name' => 'Old Category Name',
+        ]);
+
+
+        $response = $this->from("/categories/{$category->id}/edit")->put("/categories/{$category->id}");
+
+
+        $response->assertRedirect("/categories/{$category->id}/edit");
+        $response->assertSessionHasErrors('name');
+        $this->assertEquals('Old Category Name', $category->refresh()->name);
+    }
 }
