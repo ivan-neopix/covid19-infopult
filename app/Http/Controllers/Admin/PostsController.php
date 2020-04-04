@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class PostsController extends Controller
@@ -12,9 +13,23 @@ class PostsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $query = Post::query()
+                     ->with('category', 'tags')
+                     ->latest();
+
+        if ($searchTerm = $request->input('search')) {
+            $query->search($searchTerm);
+        }
+
+        $posts = $query->paginate(10);
+
+        if ($searchTerm) {
+            $posts->appends('search', $searchTerm);
+        }
+
+        return view('admin.posts.index', compact('searchTerm', 'posts'));
     }
 
     /**
