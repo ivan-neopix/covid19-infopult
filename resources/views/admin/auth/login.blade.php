@@ -1,5 +1,7 @@
 @extends('layouts.admin')
 
+@section('page_title', 'Login')
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
