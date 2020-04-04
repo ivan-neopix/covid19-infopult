@@ -74,6 +74,16 @@ class TagsTest extends TestCase
     }
 
     /** @test */
+    public function admin_can_visit_the_create_tag_page()
+    {
+        $response = $this->get("/tags/create");
+
+
+        $response->assertSuccessful();
+        $response->assertViewIs('admin.tags.create');
+    }
+
+    /** @test */
     public function admin_can_create_tags()
     {
         $data = ['name' => 'voluntary_services'];
