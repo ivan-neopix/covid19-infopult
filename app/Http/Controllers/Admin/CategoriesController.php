@@ -18,12 +18,21 @@ class CategoriesController extends Controller
 
     public function create()
     {
-        //
+        return view('admin.categories.create', [
+            'category' => new Category(),
+        ]);
     }
 
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        //
+        $category = new Category();
+
+        $category->name = $request->input('name');
+
+        $category->save();
+
+        return redirect()->route('admin.categories.index')
+            ->with('success', 'Kategorija uspešno dodata.');
     }
 
     public function edit(Category $category)
