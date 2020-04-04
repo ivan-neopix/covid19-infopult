@@ -28,9 +28,10 @@ class PostsController extends Controller
         return view('admin.posts.index', compact('searchTerm', 'posts'));
     }
 
-    public function update(Post $post)
+    public function update(Request $request, Post $post)
     {
         $post->status = Post::STATUS_ACCEPTED;
+        $post->admin_id = $request->user()->id;
 
         $post->update();
 
@@ -38,9 +39,10 @@ class PostsController extends Controller
             ->with('success', 'Post prihvaćen.');
     }
 
-    public function destroy(Post $post)
+    public function destroy(Request $request, Post $post)
     {
         $post->status = Post::STATUS_DECLINED;
+        $post->admin_id = $request->user()->id;
 
         $post->update();
 
