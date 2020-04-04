@@ -7,35 +7,32 @@
 
 @section('content')
     <div class="container">
-        <div class="h1 text-center">
-            Postovi
-        </div>
+        <div class="card">
+            <div class="card-header">Postovi</div>
 
-        <form action="{{ route('admin.posts.index') }}" method="GET">
-            <div class="form-group row mt-5">
-                <div class="col-9">
-                    <input type="text" name="search" class="form-control" value="{{ $searchTerm }}">
+            <div class="card-body">
+                <form action="{{ route('admin.posts.index') }}" method="GET" class="form-group row">
+                    <div class="col-6">
+                        <input type="text" name="search" class="form-control" value="{{ $searchTerm }}">
+                    </div>
+                    <div class="col-6">
+                        <button type="submit" class="btn btn-primary">Pretraži</button>
+                        @if(!empty($searchTerm))
+                            <a href="{{ route('admin.posts.index') }}" class="ml-3">Prikaži sve</a>
+                        @endif
+                    </div>
+                </form>
+
+                <div class="mt-2 justify-content-center">
+                    @foreach($posts as $post)
+                        <x-post :post="$post" :forAdmin="true"/>
+                    @endforeach
                 </div>
-                <div class="col-3">
-                    <button type="submit" class="btn btn-primary">Pretraži</button>
+
+                <div class="row mt-2 justify-content-center">
+                    {{ $posts->links() }}
                 </div>
             </div>
-        </form>
-
-        @if(!empty($searchTerm))
-            <div class="row mt-2 justify-content-end">
-                <a href="{{ route('admin.posts.index') }}" class="btn btn-primary mr-2">Prikaži sve</a>
-            </div>
-        @endif
-
-        <div class="row mt-2 justify-content-center">
-            @foreach($posts as $post)
-                <x-post :post="$post" :forAdmin="true"/>
-            @endforeach
-        </div>
-
-        <div class="row mt-2 justify-content-center">
-            {{ $posts->links() }}
         </div>
     </div>
 @endsection

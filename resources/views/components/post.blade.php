@@ -1,4 +1,4 @@
-<div class="card w-100 mb-3">
+<div class="card flex-row w-100 mb-3">
     <div class="card-body">
         <h5 class="card-title justify-content-between">
             {{ $post->title }}
@@ -13,25 +13,23 @@
         @endif
     </div>
     @if($forAdmin)
-        <div class="card-footer">
-            <div class="float-right">
-                @if($post->status === \App\Models\Post::STATUS_PENDING)
-                    <form action="{{ route('admin.posts.update', $post) }}" method="POST">
-                        @csrf
-                        @method('PATCH')
+        <div class="card-footer d-flex flex-column justify-content-center">
+            @if($post->status === \App\Models\Post::STATUS_PENDING)
+                <form action="{{ route('admin.posts.update', $post) }}" method="POST" class="w-100">
+                    @csrf
+                    @method('PATCH')
 
-                        <button type="submit" class="btn btn-success mr-2">Odobri</button>
-                    </form>
-                    <form action="{{ route('admin.posts.destroy', $post) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
+                    <button type="submit" class="btn btn-success w-100 mb-2">Odobri</button>
+                </form>
+                <form action="{{ route('admin.posts.destroy', $post) }}" method="POST" class="w-100">
+                    @csrf
+                    @method('DELETE')
 
-                        <button type="submit" class="btn btn-danger">Odbij</button>
-                    </form>
-                @else
-                    <span class="post-status-{{ $post->status }}">{{ __("post.status.{$post->status}") }}</span>
-                @endif
-            </div>
+                    <button type="submit" class="btn btn-danger w-100">Odbij</button>
+                </form>
+            @else
+                <span class="post-status-{{ $post->status }}">{{ __("post.status.{$post->status}") }}</span>
+            @endif
         </div>
     @endif
 </div>

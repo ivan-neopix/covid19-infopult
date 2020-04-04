@@ -7,20 +7,20 @@
 
 @section('content')
     <div class="container">
-        <div class="h1 text-center">
-            Kategorije
-        </div>
+        <div class="card">
+            <div class="card-header">
+                Kategorije
+                <a class="float-right" href="{{ route('admin.categories.create') }}">Dodaj kategoriju</a>
+            </div>
 
-        <div class="row mt-5 justify-content-end">
-            <a class="btn btn-primary" href="{{ route('admin.categories.create') }}">Dodaj kategoriju</a>
-        </div>
-        <div class="row mt-2 justify-content-center">
-            <div class="card w-100">
+            <div class="card-body">
                 <ul class="list-group list-group-flush">
                     @foreach($categories as $category)
-                        <li class="list-group-item justify-content-between d-flex">
-                            <a class="card-link" href="{{ route('admin.categories.edit', $category) }}">{{ $category->name }} ({{ $category->posts_count }})</a>
-                            <form action="{{ route('admin.categories.destroy', $category) }}" method="POST">
+                        <li class="list-group-item justify-content-between d-flex align-items-center">
+                            <a class="card-link"
+                               href="{{ route('admin.categories.edit', $category) }}">{{ $category->name }}
+                                ({{ $category->posts_count }})</a>
+                            <form action="{{ route('admin.categories.destroy', $category) }}" method="POST" class="position-absolute">
                                 @csrf
                                 @method('DELETE')
 
@@ -34,15 +34,16 @@
                                 type="button"
                                 class="btn btn-danger"
                                 data-toggle="modal"
-                                data-target="#delete-{{ $category->id }}-modal">Izbriši</button>
+                                data-target="#delete-{{ $category->id }}-modal">Izbriši
+                            </button>
                         </li>
                     @endforeach
                 </ul>
-            </div>
-        </div>
 
-        <div class="row mt-2 justify-content-center">
-            {{ $categories->links() }}
+                <div class="row mt-2 justify-content-center">
+                    {{ $categories->links() }}
+                </div>
+            </div>
         </div>
     </div>
 @endsection

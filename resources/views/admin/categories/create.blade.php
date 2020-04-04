@@ -7,19 +7,27 @@
 
 @section('content')
     <div class="container">
-        <div class="h1 text-center">
-            Dodaj kategoriju
-        </div>
+        <div class="row justify-content-center">
+            <div class="col-sm-8">
+                <div class="card">
+                    <div class="card-header">Dodaj kategoriju</div>
 
-        <div class="row mt-5 justify-content-center">
-            <form action="{{ route('admin.categories.store') }}" method="POST">
-                @csrf
+                    <div class="card-body">
+                        <form action="{{ route('admin.categories.store') }}" method="POST">
+                            @csrf
 
-                @include('admin.categories.partials.fields')
+                            @include('admin.categories.partials.fields')
 
-                <button type="submit" class="btn btn-success">Dodaj</button>
-                <a href="{{ route('admin.categories.index') }}" class="btn btn-danger">Odustani</a>
-            </form>
+                            <div class="form-group row mb-0">
+                                <div class="col-md-8 offset-md-4">
+                                    <button type="submit" class="btn btn-success">Dodaj</button>
+                                    <a href="{{ route('admin.categories.index') }}" class="btn btn-danger">Odustani</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
