@@ -27,5 +27,5 @@ Route::middleware('auth:admin')->group(function () {
     Route::resource('tags', TagsController::class);
 
     Route::resource('posts', PostsController::class)
-        ->only('index', 'show');
+        ->only('index', 'update', 'destroy');
 });

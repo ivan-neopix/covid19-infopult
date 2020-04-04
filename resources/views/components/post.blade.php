@@ -12,4 +12,26 @@
             <p class="card-text">Kontakt: {{ $post->link }}</p>
         @endif
     </div>
+    @if($forAdmin)
+        <div class="card-footer">
+            <div class="float-right">
+                @if($post->status === \App\Models\Post::STATUS_PENDING)
+                    <form action="{{ route('admin.posts.update', $post) }}" method="POST">
+                        @csrf
+                        @method('PATCH')
+
+                        <button type="submit" class="btn btn-success mr-2">Odobri</button>
+                    </form>
+                    <form action="{{ route('admin.posts.destroy', $post) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+
+                        <button type="submit" class="btn btn-danger">Odbij</button>
+                    </form>
+                @else
+                    <span class="post-status-{{ $post->status }}">{{ __("post.status.{$post->status}") }}</span>
+                @endif
+            </div>
+        </div>
+    @endif
 </div>

@@ -30,7 +30,7 @@
 
         <div class="row mt-2 justify-content-center">
             @foreach($posts as $post)
-                <x-post :post="$post"/>
+                <x-post :post="$post" :forAdmin="true"/>
             @endforeach
         </div>
 

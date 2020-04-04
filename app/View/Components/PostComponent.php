@@ -10,9 +10,13 @@ class PostComponent extends Component
     /** @var \App\Models\Post */
     public $post;
 
-    public function __construct(Post $post)
+    /** @var bool  */
+    public $forAdmin;
+
+    public function __construct(Post $post, bool $forAdmin = false)
     {
         $this->post = $post;
+        $this->forAdmin = $forAdmin;
     }
 
     public function render()

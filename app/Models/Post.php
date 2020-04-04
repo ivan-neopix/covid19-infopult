@@ -9,6 +9,10 @@ class Post extends Model
 {
     use Searchable;
 
+    const STATUS_PENDING = 'pending';
+    const STATUS_ACCEPTED = 'accepted';
+    const STATUS_DECLINED = 'declined';
+
     public function category()
     {
         return $this->belongsTo(Category::class);

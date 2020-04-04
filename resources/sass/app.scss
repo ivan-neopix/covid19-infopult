@@ -6,3 +6,24 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+%post-status {
+    padding: .2em .6em .3em;
+    color: #fff;
+    border-radius: .25em;
+}
+
+.post-status-pending {
+    @extend %post-status;
+    background-color: #838495;
+}
+
+.post-status-accepted {
+    @extend %post-status;
+    background-color: #81c784;
+}
+
+.post-status-declined {
+    @extend %post-status;
+    background-color: #ff3c3c;
+}

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Post;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -26,6 +27,8 @@ class CreatePostsTable extends Migration
                   ->references('id')
                   ->on('categories')
                   ->onDelete('cascade');
+
+            $table->enum('status', [Post::STATUS_PENDING, Post::STATUS_ACCEPTED, Post::STATUS_DECLINED]);
 
             $table->timestamps();
         });
