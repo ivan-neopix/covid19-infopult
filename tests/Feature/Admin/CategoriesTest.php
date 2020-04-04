@@ -3,6 +3,7 @@
 namespace Tests\Feature\Admin;
 
 use App\Models\Category;
+use App\Models\Post;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use Tests\Traits\AdminDomain;
@@ -56,6 +57,25 @@ class CategoriesTest extends TestCase
         $response->assertSuccessful();
         $response->assertViewIs('admin.categories.edit');
         $this->assertTrue($category->is($response->viewData('category')));
+    }
+
+    /** @test */
+    public function edit_category_page_will_contain_paginated_list_of_categories_posts()
+    {
+        $category = factory(Category::class)->create();
+        $posts = factory(Post::class, 20)->create([
+            'category_id' => $category->id,
+            'created_at' => now(),
+        ]);
+
+
+        $response = $this->get("/categories/{$category->id}/edit");
+
+
+        $response->assertSuccessful();
+        $response->assertViewIs('admin.categories.edit');
+        $response->assertSeeInOrder($posts->take(10)->pluck('title')->toArray());
+        $this->assertEquals(20, $response->viewData('postsCount'));
     }
 
     /** @test */

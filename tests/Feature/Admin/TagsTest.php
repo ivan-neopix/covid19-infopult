@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Admin;
 
+use App\Models\Post;
 use App\Models\Tag;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -106,5 +107,23 @@ class TagsTest extends TestCase
         $this->assertDatabaseMissing('tags', [
             'name' => $tagName,
         ]);
+    }
+
+    /** @test */
+    public function admin_can_access_the_view_tag_page()
+    {
+        $tag = factory(Tag::class)->create();
+        $posts = factory(Post::class, 20)->create();
+        $tag->posts()->sync($posts->pluck('id'));
+
+
+        $response = $this->get("/tags/{$tag->id}");
+
+
+        $response->assertSuccessful();
+        $response->assertViewIs('admin.tags.show');
+        $response->assertSee($tag->name);
+        $response->assertSeeInOrder($posts->take(10)->pluck('id')->toArray());
+        $this->assertEquals(20, $response->viewData('postsCount'));
     }
 }
