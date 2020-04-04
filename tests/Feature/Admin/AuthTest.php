@@ -4,6 +4,8 @@ namespace Tests\Feature\Admin;
 
 use App\Models\Admin;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 use Tests\Traits\AdminDomain;
 
@@ -21,6 +23,15 @@ class AuthTest extends TestCase
         $this->admin = factory(Admin::class)->create([
             'email' => 'admin@covid.com',
             'password' => bcrypt('covid'),
+        ]);
+    }
+
+    protected function createPasswordResetToken(string $email, string $token)
+    {
+        DB::table('password_resets')->insert([
+            'email' => $email,
+            'token' => bcrypt($token),
+            'created_at' => now(),
         ]);
     }
 
@@ -78,5 +89,114 @@ class AuthTest extends TestCase
 
         $response->assertRedirect('/');
         $this->assertGuest('admin');
+    }
+
+    /** @test */
+    public function guests_can_see_the_forgot_password()
+    {
+        $response = $this->get("/forgot-password");
+
+
+        $response->assertSuccessful();
+        $response->assertViewIs('auth.passwords.email');
+    }
+
+    /** @test */
+    public function guests_can_request_a_reset_password_link()
+    {
+        $response = $this->post("/forgot-password", [
+            'email' => 'admin@covid.com',
+        ]);
+
+        $response->assertRedirect('/');
+        $this->assertDatabaseHas('password_resets', [
+            'email' => 'admin@covid.com'
+        ]);
+    }
+
+    /** @test */
+    public function guests_cannot_request_a_reset_password_link_using_an_invalid_email()
+    {
+        $response = $this->from("/forgot-password")->post("/forgot-password", [
+            'email' => 'invalid@test.com',
+        ]);
+
+
+        $response->assertRedirect("/forgot-password");
+        $response->assertSessionHasErrors('email');
+        $this->assertDatabaseMissing('password_resets', []);
+    }
+
+    /** @test */
+    public function guests_can_visit_the_reset_password_page()
+    {
+        $this->createPasswordResetToken('admin@covid.com', 'test-token');
+
+
+        $response = $this->get("/reset-password/test-token");
+
+
+        $response->assertSuccessful();
+        $response->assertViewIs('auth.passwords.reset');
+    }
+
+    /** @test */
+    public function guests_can_reset_their_passwords()
+    {
+        $this->createPasswordResetToken('admin@covid.com', 'test-token');
+
+
+        $response = $this->post("/reset-password", [
+            'email' => 'admin@covid.com',
+            'password' => 'newPassword',
+            'password_confirmation' => 'newPassword',
+            'token' => 'test-token',
+        ]);
+
+
+        $response->assertRedirect("/login");
+        $this->assertTrue(Hash::check('newPassword', $this->admin->refresh()->password));
+        $this->assertDatabaseMissing('password_resets', [
+            'email' => 'admin@covid.com',
+        ]);
+    }
+
+    /** @test */
+    public function guests_cannot_reset_their_passwords_using_an_invalid_password()
+    {
+        $this->createPasswordResetToken('admin@covid.com', 'test-token');
+
+
+        $response = $this->from("/reset-password")->post("/reset-password", [
+            'email' => 'admin@covid.com',
+            'password' => 'short',
+            'password_confirmation' => 'short',
+            'token' => 'test-token',
+        ]);
+
+
+        $response->assertRedirect("/reset-password");
+        $this->assertFalse(Hash::check('short', $this->admin->refresh()->password));
+        $this->assertDatabaseHas('password_resets', [
+            'email' => 'admin@covid.com',
+        ]);
+    }
+
+    /** @test */
+    public function guests_cannot_reset_their_passwords_using_an_invalid_token()
+    {
+        $response = $this->from("/reset-password")->post("/reset-password", [
+            'email' => 'admin@covid.com',
+            'password' => 'newPassword',
+            'password_confirmation' => 'newPassword',
+            'token' => 'test-token',
+        ]);
+
+
+        $response->assertRedirect("/reset-password");
+        $response->assertSessionHasErrors([
+            'email' => 'This password reset token is invalid.',
+        ]);
+        $this->assertFalse(Hash::check('newPassword', $this->admin->refresh()->password));
     }
 }
