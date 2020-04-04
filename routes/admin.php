@@ -10,5 +10,7 @@ Route::middleware('guest:admin')->group(function () {
 });
 
 Route::middleware('auth:admin')->group(function () {
+    Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+
     Route::resource('posts', PostsController::class);
 });
