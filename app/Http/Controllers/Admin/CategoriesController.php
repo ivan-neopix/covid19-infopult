@@ -41,7 +41,10 @@ class CategoriesController extends Controller
 
     public function edit(Category $category)
     {
-        return view('admin.categories.edit', compact('category'));
+        $posts = $category->posts()->paginate(10);
+        $postsCount = $posts->total();
+
+        return view('admin.categories.edit', compact('category', 'posts', 'postsCount'));
     }
 
     public function update(CategoryRequest $request, Category $category)

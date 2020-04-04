@@ -1,5 +1,7 @@
 @php
     /** @var \App\Models\Category $category */
+    /** @var \Illuminate\Pagination\LengthAwarePaginator|\App\Models\Post[] $posts */
+    /** @var int $postsCount */
 @endphp
 @extends('layouts.admin')
 
@@ -21,6 +23,22 @@
                 <button type="submit" class="btn btn-success">Izmeni</button>
                 <a href="{{ route('admin.categories.index') }}" class="btn btn-danger">Odustani</a>
             </form>
+        </div>
+
+        <div class="row mt-5 justify-content-center">
+            <div class="h1 text-center">
+                Postovi ({{ $postsCount }})
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            @foreach($posts as $post)
+                <x-post :post="$post" :forAdmin="true"/>
+            @endforeach
+        </div>
+
+        <div class="row mt-2">
+            {{ $posts->links() }}
         </div>
     </div>
 @endsection
