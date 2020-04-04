@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CategoryRequest;
 use App\Models\Category;
-use Illuminate\Http\Request;
 
 class CategoriesController extends Controller
 {
@@ -53,6 +52,9 @@ class CategoriesController extends Controller
 
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+
+        return redirect()->route('admin.categories.index')
+            ->with('success', 'Kategorija uspešno izbrisana.');
     }
 }
