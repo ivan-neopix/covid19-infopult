@@ -73,4 +73,32 @@ class PostsTest extends TestCase
             $response->assertDontSee($post->title);
         });
     }
+
+    /** @test */
+    public function admin_can_accept_posts()
+    {
+        $post = factory(Post::class)->create(['status' => Post::STATUS_PENDING]);
+
+
+        $response = $this->patch("/posts/{$post->id}");
+
+
+        $response->assertRedirect("/posts");
+        $response->assertSessionHas('success');
+        $this->assertEquals(Post::STATUS_ACCEPTED, $post->refresh()->status);
+    }
+
+    /** @test */
+    public function admin_can_decline_posts()
+    {
+        $post = factory(Post::class)->create(['status' => Post::STATUS_PENDING]);
+
+
+        $response = $this->delete("/posts/{$post->id}");
+
+
+        $response->assertRedirect("/posts");
+        $response->assertSessionHas('success');
+        $this->assertEquals(Post::STATUS_DECLINED, $post->refresh()->status);
+    }
 }
