@@ -4,6 +4,7 @@
 /storage/*.key
 /vendor
 /.idea
+/coverage
 /public/css
 /public/js
 /public/mix-manifest.json
