@@ -25,6 +25,14 @@ class TagsController extends Controller
         ]);
     }
 
+    public function show(Tag $tag)
+    {
+        $posts = $tag->posts()->latest()->paginate(10);
+        $postsCount = $posts->total();
+
+        return view('admin.tags.show', compact('tag', 'posts', 'postsCount'));
+    }
+
     public function create()
     {
         return view('admin.tags.create', [
