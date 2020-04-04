@@ -34,7 +34,7 @@
             @foreach($tags as $tag)
                 <div class="card mr-2 mb-2">
                     <li class="list-group-item justify-content-between d-flex">
-                        <a class="card-link" href="{{ route('admin.tags.show', $tag) }}">#{{ $tag->name }}</a>
+                        <a class="card-link" href="{{ route('admin.tags.show', $tag) }}">#{{ $tag->name }} ({{ $tag->posts_count }})</a>
                     </li>
                 </div>
             @endforeach

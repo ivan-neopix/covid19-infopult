@@ -19,7 +19,7 @@
                 <ul class="list-group list-group-flush">
                     @foreach($categories as $category)
                         <li class="list-group-item justify-content-between d-flex">
-                            <a class="card-link" href="{{ route('admin.categories.edit', $category) }}">{{ $category->name }}</a>
+                            <a class="card-link" href="{{ route('admin.categories.edit', $category) }}">{{ $category->name }} ({{ $category->posts_count }})</a>
                             <form action="{{ route('admin.categories.destroy', $category) }}" method="POST">
                                 @csrf
                                 @method('DELETE')

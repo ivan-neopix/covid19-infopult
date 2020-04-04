@@ -11,7 +11,9 @@ class TagsController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Tag::query()->orderBy('name', 'asc');
+        $query = Tag::query()
+                    ->withCount('posts')
+                    ->orderBy('name', 'asc');
 
         if ($searchTerm = $request->input('search')) {
             $query->search($searchTerm);

@@ -10,7 +10,12 @@ class CategoriesController extends Controller
 {
     public function index()
     {
-        $categories = Category::query()->orderBy('name', 'asc')->paginate(10);
+        $categories = Category::query()
+                              ->orderBy('name', 'asc')
+                              ->withCount('posts')
+                              ->paginate(10);
+
+        \App\Models\Post::each(function (\App\Models\Post $p) { $p->tags()->sync(\App\Models\Tag::inRandomOrder()->take(10)->pluck('id')); });
 
         return view('admin.categories.index', compact('categories'));
     }
