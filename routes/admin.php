@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\Auth\ResetPasswordController;
 use App\Http\Controllers\Admin\CategoriesController;
 use App\Http\Controllers\Admin\PostsController;
 use App\Http\Controllers\Admin\Auth\ForgotPasswordController;
+use App\Http\Controllers\Admin\TagsController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest:admin')->group(function () {
@@ -23,5 +24,8 @@ Route::middleware('auth:admin')->group(function () {
 
     Route::resource('categories', CategoriesController::class);
 
-    Route::resource('posts', PostsController::class);
+    Route::resource('tags', TagsController::class);
+
+    Route::resource('posts', PostsController::class)
+        ->only('index', 'show');
 });
