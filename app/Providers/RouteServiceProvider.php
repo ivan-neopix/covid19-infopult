@@ -48,8 +48,9 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapAdminRoutes()
     {
         Route::middleware('web')
-            ->domain(config('app.admin_domain'))
+            ->domain(config('app.web_domain'))
+            ->prefix('de-si-poso')
             ->name('admin.')
             ->group(base_path('routes/admin.php'));
-    }
+}
 }
