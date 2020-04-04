@@ -71,4 +71,40 @@ class TagsTest extends TestCase
         });
 
     }
+
+    /** @test */
+    public function admin_can_create_tags()
+    {
+        $data = ['name' => 'voluntary_services'];
+
+
+        $response = $this->post("/tags", $data);
+
+
+        $response->assertRedirect("/tags");
+        $response->assertSessionHas('success');
+        $this->assertDatabaseHas('tags', [
+            'name' => 'voluntary_services',
+        ]);
+    }
+
+    /**
+     * @test
+     * @testWith [null]
+     *           ["I am an invalid tag"]
+     */
+    public function admin_cannot_create_invalid_tags($tagName)
+    {
+        $data = ['name' => $tagName];
+
+
+        $response = $this->from("/tags/create")->post("/tags", $data);
+
+
+        $response->assertRedirect("/tags/create");
+        $response->assertSessionHasErrors('name');
+        $this->assertDatabaseMissing('tags', [
+            'name' => $tagName,
+        ]);
+    }
 }
