@@ -99,10 +99,25 @@ class TagsTest extends TestCase
         ]);
     }
 
+    /** @test */
+    public function tag_name_will_be_normalized_before_storing()
+    {
+        $data = ['name' => 'test tag'];
+
+
+        $response = $this->post("/tags", $data);
+
+
+        $response->assertRedirect("/de-si-poso/tags");
+        $response->assertSessionHas('success');
+        $this->assertDatabaseHas('tags', [
+            'name' => 'test_tag',
+        ]);
+    }
+
     /**
      * @test
      * @testWith [null]
-     *           ["I am an invalid tag"]
      */
     public function admin_cannot_create_invalid_tags($tagName)
     {
