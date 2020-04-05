@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Traits\Searchable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
@@ -34,13 +35,18 @@ class Post extends Model
         return ['title'];
     }
 
-    public function scopeForCategory($query, $categoryId)
+    public function scopeForCategory(Builder $query, $categoryId)
     {
         $query->where('category_id', $categoryId);
     }
 
-    public function scopeWithStatus($query, $status)
+    public function scopeWithStatus(Builder $query, $status)
     {
         $query->where('status', $status);
+    }
+
+    public function scopeAccepted(Builder $query)
+    {
+        return $query->where('posts.status', Post::STATUS_ACCEPTED);
     }
 }
