@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use App\Models\Traits\Searchable;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class Tag extends Model
 {
