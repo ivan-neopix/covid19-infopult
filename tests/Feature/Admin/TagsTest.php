@@ -66,7 +66,7 @@ class TagsTest extends TestCase
 
         $response->assertSuccessful();
         $response->assertViewIs('admin.tags.index');
-        $response->assertSeeInOrder($relevantTags->pluck('name')->toArray());
+        $response->assertSeeInOrder($relevantTags->reverse()->pluck('name')->toArray());
         $irrelevantTags->each(function (Tag $tag) use ($response) {
             $response->assertDontSee($tag->name);
         });
