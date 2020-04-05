@@ -10,9 +10,6 @@ trait Searchable
     {
         $query->where(function (Builder $query) use ($searchTerm) {
             $searchFields = $this->searchBy();
-            if (!is_array($searchFields)) {
-                $searchFields = [$searchFields];
-            }
 
             collect($searchFields)->crossJoin(explode(' ', $searchTerm))
                                   ->each(function ($fieldAndTerm) use ($query) {
