@@ -15,7 +15,7 @@
             </div>
 
             <div class="card-body">
-                <form action="{{ route('admin.tags.index') }}" method="GET" class="form-group row">
+                <form action="{{ route('admin.tags.index') }}" method="GET" class="form-group row mt-3">
                     <div class="col-6">
                         <input type="text" name="search" class="form-control" value="{{ $searchTerm }}">
                     </div>
@@ -27,7 +27,7 @@
                     </div>
                 </form>
 
-                <div class="mt-2 justify-content-start">
+                <div class="mt-4 justify-content-start">
                     <ul class="list-group flex-row">
                         @foreach($tags as $tag)
                             <li class="list-group-item d-inline-flex justify-content-between align-items-center mr-2 mb-2">

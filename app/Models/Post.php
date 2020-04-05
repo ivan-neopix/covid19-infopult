@@ -13,6 +13,12 @@ class Post extends Model
     const STATUS_ACCEPTED = 'accepted';
     const STATUS_DECLINED = 'declined';
 
+    const STATUSES = [
+        self::STATUS_PENDING => 'Na čekanju',
+        self::STATUS_ACCEPTED => 'Prihvaćeno',
+        self::STATUS_DECLINED => 'Odbijeno'
+    ];
+
     public function category()
     {
         return $this->belongsTo(Category::class);
@@ -26,5 +32,15 @@ class Post extends Model
     protected function searchBy(): array
     {
         return ['title'];
+    }
+
+    public function scopeForCategory($query, $categoryId)
+    {
+        $query->where('category_id', $categoryId);
+    }
+
+    public function scopeWithStatus($query, $status)
+    {
+        $query->where('status', $status);
     }
 }

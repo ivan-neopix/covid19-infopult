@@ -9,7 +9,7 @@
 
 @section('content')
     <div class="container">
-        <div class="h1 text-center">
+        <div class="h1 text-center mb-3">
             #{{ $tag->name }}
         </div>
 

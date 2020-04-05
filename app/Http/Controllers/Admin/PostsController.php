@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\PostRequest;
+use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -19,13 +20,25 @@ class PostsController extends Controller
             $query->search($searchTerm);
         }
 
+        if ($category = $request->input('category')) {
+            $query->forCategory($category);
+        }
+
+        if ($status = $request->input('status')) {
+            $query->withStatus($status);
+        }
+
         $posts = $query->paginate(10);
 
         if ($searchTerm) {
             $posts->appends('search', $searchTerm);
         }
 
-        return view('admin.posts.index', compact('searchTerm', 'posts'));
+        $categories = Category::all();
+        $statuses = POST::STATUSES;
+
+
+        return view('admin.posts.index', compact('searchTerm', 'posts', 'category', 'categories', 'status', 'statuses'));
     }
 
     public function update(Request $request, Post $post)
