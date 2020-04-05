@@ -91,7 +91,7 @@ class CategoriesTest extends TestCase
         ]);
 
 
-        $response->assertRedirect("/categories");
+        $response->assertRedirect("/de-si-poso/categories");
         $response->assertSessionHas('success');
         $this->assertEquals('New Category Name', $category->refresh()->name);
     }
@@ -131,7 +131,7 @@ class CategoriesTest extends TestCase
         $response = $this->post("/categories", $data);
 
 
-        $response->assertRedirect("/categories");
+        $response->assertRedirect("/de-si-poso/categories");
         $response->assertSessionHas('success');
         $this->assertDatabaseHas('categories', [
             'name' => 'New Category',
@@ -161,10 +161,8 @@ class CategoriesTest extends TestCase
         $response = $this->delete("/categories/{$category->id}");
 
 
-        $response->assertRedirect("/categories");
+        $response->assertRedirect("/de-si-poso/categories");
         $response->assertSessionHas('success');
-        $this->assertDatabaseMissing('categories', [
-            'id' => $category->id,
-        ]);
+        $this->assertNotNull($category->refresh()->deleted_at);
     }
 }

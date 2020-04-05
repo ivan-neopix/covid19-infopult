@@ -92,7 +92,7 @@ class TagsTest extends TestCase
         $response = $this->post("/tags", $data);
 
 
-        $response->assertRedirect("/tags");
+        $response->assertRedirect("/de-si-poso/tags");
         $response->assertSessionHas('success');
         $this->assertDatabaseHas('tags', [
             'name' => 'voluntary_services',

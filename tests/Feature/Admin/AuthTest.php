@@ -154,7 +154,7 @@ class AuthTest extends TestCase
         ]);
 
 
-        $response->assertRedirect("/login");
+        $response->assertRedirect("/de-si-poso/login");
         $this->assertTrue(Hash::check('newPassword', $this->admin->refresh()->password));
         $this->assertDatabaseMissing('password_resets', [
             'email' => 'admin@covid.com',
@@ -167,7 +167,7 @@ class AuthTest extends TestCase
         $this->createPasswordResetToken('admin@covid.com', 'test-token');
 
 
-        $response = $this->from("/reset-password")->post("/reset-password", [
+        $response = $this->from("/de-si-poso/reset-password")->post("/reset-password", [
             'email' => 'admin@covid.com',
             'password' => 'short',
             'password_confirmation' => 'short',
@@ -175,7 +175,7 @@ class AuthTest extends TestCase
         ]);
 
 
-        $response->assertRedirect("/reset-password");
+        $response->assertRedirect("/de-si-poso/reset-password");
         $this->assertFalse(Hash::check('short', $this->admin->refresh()->password));
         $this->assertDatabaseHas('password_resets', [
             'email' => 'admin@covid.com',
@@ -185,7 +185,7 @@ class AuthTest extends TestCase
     /** @test */
     public function guests_cannot_reset_their_passwords_using_an_invalid_token()
     {
-        $response = $this->from("/reset-password")->post("/reset-password", [
+        $response = $this->from("/de-si-poso/reset-password")->post("/reset-password", [
             'email' => 'admin@covid.com',
             'password' => 'newPassword',
             'password_confirmation' => 'newPassword',
@@ -193,7 +193,7 @@ class AuthTest extends TestCase
         ]);
 
 
-        $response->assertRedirect("/reset-password");
+        $response->assertRedirect("/de-si-poso/reset-password");
         $response->assertSessionHasErrors([
             'email' => 'This password reset token is invalid.',
         ]);

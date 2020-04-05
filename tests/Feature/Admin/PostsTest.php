@@ -83,7 +83,7 @@ class PostsTest extends TestCase
         $response = $this->patch("/posts/{$post->id}");
 
 
-        $response->assertRedirect("/posts");
+        $response->assertRedirect("/de-si-poso/posts");
         $response->assertSessionHas('success');
         $this->assertEquals(Post::STATUS_ACCEPTED, $post->refresh()->status);
     }
@@ -97,7 +97,7 @@ class PostsTest extends TestCase
         $response = $this->delete("/posts/{$post->id}");
 
 
-        $response->assertRedirect("/posts");
+        $response->assertRedirect("/de-si-poso/posts");
         $response->assertSessionHas('success');
         $this->assertEquals(Post::STATUS_DECLINED, $post->refresh()->status);
     }
