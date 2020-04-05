@@ -49,7 +49,7 @@ class PostsController extends Controller
 
         $post->update();
 
-        return redirect()->route('admin.posts.index')
+        return redirect()->back()
             ->with('success', 'Post prihvaćen.');
     }
 
@@ -60,7 +60,7 @@ class PostsController extends Controller
 
         $post->update();
 
-        return redirect()->route('admin.posts.index')
+        return redirect()->back()
             ->with('success', 'Post odbijen.');
     }
 }

@@ -80,10 +80,10 @@ class PostsTest extends TestCase
         $post = factory(Post::class)->create(['status' => Post::STATUS_PENDING]);
 
 
-        $response = $this->patch("/posts/{$post->id}");
+        $response = $this->from("/posts?page=7")->patch("/posts/{$post->id}");
 
 
-        $response->assertRedirect("/de-si-poso/posts");
+        $response->assertRedirect("/posts?page=7");
         $response->assertSessionHas('success');
         $this->assertEquals(Post::STATUS_ACCEPTED, $post->refresh()->status);
     }
@@ -94,10 +94,10 @@ class PostsTest extends TestCase
         $post = factory(Post::class)->create(['status' => Post::STATUS_PENDING]);
 
 
-        $response = $this->delete("/posts/{$post->id}");
+        $response = $this->from("/posts?page=2?search=test")->delete("/posts/{$post->id}");
 
 
-        $response->assertRedirect("/de-si-poso/posts");
+        $response->assertRedirect("/posts?page=2?search=test");
         $response->assertSessionHas('success');
         $this->assertEquals(Post::STATUS_DECLINED, $post->refresh()->status);
     }
