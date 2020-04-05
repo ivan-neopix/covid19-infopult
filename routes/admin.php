@@ -9,6 +9,8 @@ use App\Http\Controllers\Admin\TagsController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest:admin')->group(function () {
+    Route::redirect('/', 'de-si-poso/login');
+
     Route::get('login', [LoginController::class, 'showLoginForm'])->name('login.show');
     Route::post('login', [LoginController::class, 'login'])->name('login.perform');
 
