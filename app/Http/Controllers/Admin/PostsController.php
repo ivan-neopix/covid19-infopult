@@ -28,11 +28,12 @@ class PostsController extends Controller
             $query->withStatus($status);
         }
 
-        $posts = $query->paginate(10);
-
-        if ($searchTerm) {
-            $posts->appends('search', $searchTerm);
-        }
+        $posts = $query->paginate(10)
+                       ->appends([
+                            'search' => $searchTerm,
+                            'category' => $category,
+                            'status' => $status,
+                        ]);
 
         $categories = Category::all();
         $statuses = POST::STATUSES;
