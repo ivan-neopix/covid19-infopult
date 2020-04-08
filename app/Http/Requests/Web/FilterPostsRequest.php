@@ -26,8 +26,7 @@ class FilterPostsRequest extends FormRequest
     {
         return [
             'search' => 'nullable|string',
-            'tags' => 'nullable|array',
-            'tags.*' => 'integer',
+            'tags' => 'nullable|string',
             'category' => 'nullable|integer|bail|' . Rule::exists('categories', 'id'),
             'per_page' => 'nullable|integer',
         ];

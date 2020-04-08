@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\PostRequest;
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Tag;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class PostsController extends Controller
@@ -18,6 +20,17 @@ class PostsController extends Controller
 
         if ($searchTerm = $request->input('search')) {
             $query->search($searchTerm);
+        }
+
+        if ($tags = $request->input('tags')) {
+            $tagList = collect(explode(' ', $request->input('tags')));
+            $existingTags = Tag::whereIn('name', $tagList)->get();
+
+            if (count($existingTags) > 0) {
+                $query->whereHas('tags', function (Builder $query) use ($existingTags) {
+                    $query->whereIn('tags.id', $existingTags);
+                });
+            }
         }
 
         if ($category = $request->input('category')) {
@@ -33,13 +46,14 @@ class PostsController extends Controller
                             'search' => $searchTerm,
                             'category' => $category,
                             'status' => $status,
+                            'tags' => $tags,
                         ]);
 
         $categories = Category::all();
         $statuses = POST::STATUSES;
 
 
-        return view('admin.posts.index', compact('searchTerm', 'posts', 'category', 'categories', 'status', 'statuses'));
+        return view('admin.posts.index', compact('searchTerm', 'posts', 'category', 'categories', 'status', 'statuses', 'tags'));
     }
 
     public function update(Request $request, Post $post)

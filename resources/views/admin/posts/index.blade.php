@@ -16,7 +16,13 @@
                         <input type="text" name="search" class="form-control" value="{{ $searchTerm }}"
                                placeholder="Pretraga naslova">
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-3">
+                        <input id="tags-output" type="hidden" name="tags" value="{{ $tags }}" autocomplete="off">
+                        <input id="tags-input" type="text" class="tagify-single-line" value="{{ $tags }}" autocomplete="off"
+                               placeholder="Pretraga tagova">
+                        <div id="tags-autocomplete"></div>
+                    </div>
+                    <div class="col-2">
                         <select name="category" class="form-control @error('category') is-invalid @enderror">
                             <option value="" @if ($category == '') selected @endif>Sve kategorije</option>
                             @foreach ($categories as $item)
@@ -46,7 +52,7 @@
                                 </span>
                         @enderror
                     </div>
-                    <div class="col-3">
+                    <div class="col-2">
                         <button type="submit" class="btn btn-primary">Pretraži</button>
                         @if(!empty($searchTerm))
                             <a href="{{ route('admin.posts.index') }}" class="ml-3">Prikaži sve</a>

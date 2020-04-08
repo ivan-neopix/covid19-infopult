@@ -7,6 +7,8 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+@import url('https://yaireo.github.io/tagify/dist/tagify.css');
+
 %post-status {
     padding: .2em .6em .3em;
     color: #fff;
@@ -26,4 +28,9 @@
 .post-status-declined {
     @extend %post-status;
     background-color: #ff3c3c;
+}
+
+.tagify-single-line {
+    flex-wrap: nowrap;
+    overflow: hidden;
 }

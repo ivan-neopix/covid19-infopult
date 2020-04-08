@@ -24,10 +24,15 @@ class PostsController extends Controller
             $query->search($searchTerm);
         }
 
-        if ($tagIds = $request->input('tags')) {
-            $query->whereHas('tags', function (Builder $query) use ($tagIds) {
-                $query->whereIn('tags.id', $tagIds);
-            });
+        if ($tags = $request->input('tags')) {
+            $tagList = collect(explode(' ', $request->input('tags')));
+            $existingTags = Tag::whereIn('name', $tagList)->get();
+
+            if (count($existingTags) > 0) {
+                $query->whereHas('tags', function (Builder $query) use ($existingTags) {
+                    $query->whereIn('tags.id', $existingTags);
+                });
+            }
         }
 
         if ($categoryId = $request->input('category')) {
@@ -36,7 +41,7 @@ class PostsController extends Controller
 
         $posts = $query->paginate($perPage = $request->input('per_page', 10))->appends([
             'search' => $searchTerm,
-            'tags' => $tagIds,
+            'tags' => $tags,
             'category' => $categoryId,
             'per_page' => $perPage,
         ]);
@@ -48,6 +53,7 @@ class PostsController extends Controller
             'categories' => $categories,
             'searchTerm' => $searchTerm,
             'category' => $categoryId,
+            'tags' => $tags,
         ]);
     }
 
