@@ -94,6 +94,8 @@ class PostsController extends Controller
             return ['name' => $tagName];
         })->toArray());
 
+        Tag::whereIn('name', $newTags)->searchable();
+
         return Tag::whereIn('name', $tags)->pluck('id');
     }
 }
