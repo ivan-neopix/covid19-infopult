@@ -4,9 +4,25 @@ import { connectAutocomplete } from 'instantsearch.js/es/connectors';
 import Tagify from '@yaireo/tagify';
 
 const settings = {
-    delimiters: ',| ',
-    keepInvalidTags: true,
+    search: {
+        delimiters: ',| ',
+        enforceWhitelist: true,
+        dropdown: {
+            mapValueTo: 'value',
+            searchKeys: ['bold'],
+        }
+    },
+    create: {
+        delimiters: ',| ',
+        keepInvalidTags: true,
+        dropdown: {
+            mapValueTo: 'value',
+            searchKeys: ['bold'],
+        }
+    }
 };
+
+const stripCharacters = {'đ': 'dj', 'ž': 'z', 'ć': 'c', 'č': 'c', 'š': 's'};
 
 
 export default class Tags {
@@ -14,14 +30,15 @@ export default class Tags {
         this.search = instantsearch({
             indexName: 'tags',
             searchClient: algoliasearch(
-                'F71RCAYCSV',
-                '5d4f20eeae8c4a78d0dbdf8d6f38491d'
+                ALGOLIA_APP_ID,
+                ALGOLIA_PUBLIC_SECRET
             ),
         });
 
         this.input = input;
         this.autocompleteContainer = autocompleteContainer;
         this.output = output;
+        this.settingsType = this.input.dataset.type === 'create' ? 'create' : 'search';
 
         this.tags = {};
 
@@ -29,7 +46,12 @@ export default class Tags {
     }
 
     init () {
-        this.tagify = new Tagify(this.input, settings);
+        const whitelist = this.output.value.split(' ').map(el => ({value: el.toLowerCase(), bold: el.toLowerCase().replace(/[ćčšđž]/g, m => stripCharacters[m])}));
+
+        this.tagify = new Tagify(
+            this.input,
+            { ...settings[this.settingsType], whitelist },
+        );
 
         // Create the custom widget
         this.customAutocomplete = connectAutocomplete(
@@ -62,8 +84,14 @@ export default class Tags {
         }
 
         if (currentRefinement && indices.length) {
-            this.tagify.settings.whitelist.splice(0, this.tagify.settings.whitelist.length, ...indices[0].hits.map(el => el.name));
-            this.tagify.loading(false).dropdown.show.call(this.tagify, currentRefinement);
+            let whitelist = indices[0].hits.map(el => ({value: el.name.toLowerCase(), bold: el.bold.toLowerCase()}));
+            // remove duplicates
+            whitelist = [...new Map(whitelist.map(item => [item.value, item])).values()];
+
+            this.tagify.settings.whitelist.splice(0, this.tagify.settings.whitelist.length, ...whitelist);
+            const stripedValue = currentRefinement.toLowerCase().replace(/[ćčšđž]/g, m => stripCharacters[m]);
+
+            this.tagify.loading(false).dropdown.show.call(this.tagify, stripedValue);
         }
     };
 }

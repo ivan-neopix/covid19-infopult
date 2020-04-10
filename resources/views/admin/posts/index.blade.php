@@ -19,7 +19,7 @@
                     <div class="col-3">
                         <input id="tags-output" type="hidden" name="tags" value="{{ $tags }}" autocomplete="off">
                         <input id="tags-input" type="text" class="tagify-single-line" value="{{ $tags }}" autocomplete="off"
-                               placeholder="Pretraga tagova">
+                               placeholder="Pretraga tagova" data-type="search">
                         <div id="tags-autocomplete"></div>
                     </div>
                     <div class="col-2">

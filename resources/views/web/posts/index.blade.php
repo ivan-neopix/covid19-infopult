@@ -19,7 +19,7 @@
                     <div class="col-3">
                         <input id="tags-output" type="hidden" name="tags" value="{{ $tags }}" autocomplete="off">
                         <input id="tags-input" type="text" class="tagify-single-line" value="{{ $tags }}" autocomplete="off"
-                               placeholder="Pretraga tagova">
+                               placeholder="Pretraga tagova" data-type="search">
                         <div id="tags-autocomplete"></div>
                     </div>
                     <div class="col-md-3">
@@ -57,5 +57,10 @@
             </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+        ALGOLIA_APP_ID = `<?php echo env('ALGOLIA_APP_ID', '') ?>`;
+        ALGOLIA_PUBLIC_SECRET = `<?php echo env('ALGOLIA_PUBLIC_SECRET', '') ?>`;
+    </script>
 @endsection
 

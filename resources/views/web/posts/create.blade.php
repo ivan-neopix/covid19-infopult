@@ -68,7 +68,7 @@
                                 <div class="col-md-6">
                                     <input id="tags-output" type="hidden" name="tags" value="{{ old('tags') }}">
                                     <input id="tags-input" type="text" class="@error('tags') is-invalid @enderror"
-                                           value="{{ old('tags') }}" data-role="tagsinput">
+                                           value="{{ old('tags') }}" data-role="tagsinput" data-type="create">
 
                                     @error('tags')
                                     <span class="invalid-feedback" role="alert">
@@ -113,4 +113,9 @@
             </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+        ALGOLIA_APP_ID = `<?php echo env('ALGOLIA_APP_ID', '') ?>`;
+        ALGOLIA_PUBLIC_SECRET = `<?php echo env('ALGOLIA_PUBLIC_SECRET', '') ?>`;
+    </script>
 @endsection
