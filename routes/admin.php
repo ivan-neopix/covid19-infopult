@@ -29,5 +29,8 @@ Route::middleware('auth:admin')->group(function () {
     Route::resource('tags', TagsController::class);
 
     Route::resource('posts', PostsController::class)
-        ->only('index', 'update', 'destroy');
+        ->only('index', 'update', 'edit');
+
+    Route::patch("/posts/{post}/approve", [PostsController::class, 'approve'])->name('posts.approve');
+    Route::delete("/posts/{post}/deny", [PostsController::class, 'deny'])->name('posts.deny');
 });

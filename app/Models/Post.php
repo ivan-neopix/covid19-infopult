@@ -49,4 +49,9 @@ class Post extends Model
     {
         return $query->where('posts.status', Post::STATUS_ACCEPTED);
     }
+
+    public function isPending()
+    {
+        return $this->status === self::STATUS_PENDING;
+    }
 }
