@@ -72,5 +72,10 @@
             </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+        ALGOLIA_APP_ID = `<?php echo env('ALGOLIA_APP_ID', '') ?>`;
+        ALGOLIA_PUBLIC_SECRET = `<?php echo env('ALGOLIA_PUBLIC_SECRET', '') ?>`;
+    </script>
 @endsection
 
