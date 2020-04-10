@@ -26,12 +26,12 @@ class PostsController extends Controller
         }
 
         if ($tags = $request->input('tags')) {
-            $tagList = collect(explode(' ', $request->input('tags')));
+            $tagList = collect(explode(' ', $tags));
             $existingTags = Tag::whereIn('name', $tagList)->get();
 
             if (count($existingTags) > 0) {
                 $query->whereHas('tags', function (Builder $query) use ($existingTags) {
-                    $query->whereIn('tags.id', $existingTags);
+                    $query->whereIn('tags.id', $existingTags->pluck('id'));
                 });
             }
         }
