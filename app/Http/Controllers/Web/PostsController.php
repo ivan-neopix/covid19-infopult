@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\HandlesTags;
 use App\Http\Requests\Web\FilterPostsRequest;
 use App\Http\Requests\Web\PostsRequest;
 use App\Models\Category;
@@ -13,6 +14,8 @@ use Illuminate\Support\Collection;
 
 class PostsController extends Controller
 {
+    use HandlesTags;
+
     public function index(FilterPostsRequest $request)
     {
         $query = Post::query()
@@ -81,21 +84,5 @@ class PostsController extends Controller
 
         return redirect()->route('homepage')
             ->with('success', 'Vaša objava je kreirana i biće objavljena kada je administratori odobre.');
-    }
-
-    protected function prepareTagIds(PostsRequest $request): Collection
-    {
-        $tags = collect(explode(' ', $request->input('tags')));
-
-        $existingTags = Tag::whereIn('name', $tags)->get();
-
-        $newTags = $tags->diff($existingTags->pluck('name'));
-        Tag::insert($newTags->map(function ($tagName) {
-            return ['name' => $tagName];
-        })->toArray());
-
-        Tag::whereIn('name', $newTags)->searchable();
-
-        return Tag::whereIn('name', $tags)->pluck('id');
     }
 }
