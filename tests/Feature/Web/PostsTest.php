@@ -116,7 +116,7 @@ class PostsTest extends TestCase
         $irrelevantPosts = factory(Post::class, 3)->create(['status' => Post::STATUS_ACCEPTED]);
 
 
-        $response = $this->get("/?tags[]={$relevantTag->id}");
+        $response = $this->get("/?tags={$relevantTag->name}");
 
 
         $response->assertSuccessful();
@@ -145,7 +145,7 @@ class PostsTest extends TestCase
 
         $query = http_build_query([
             'category' => $relevantCategory->id,
-            'tags' => $relevantTags->pluck('id')->toArray(),
+            'tags' => $relevantTags->pluck('name')->implode(' '),
         ]);
 
 

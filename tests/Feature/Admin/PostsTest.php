@@ -80,7 +80,7 @@ class PostsTest extends TestCase
         $post = factory(Post::class)->create(['status' => Post::STATUS_PENDING]);
 
 
-        $response = $this->from("/posts?page=7")->patch("/posts/{$post->id}");
+        $response = $this->from("/posts?page=7")->patch("/posts/{$post->id}/approve");
 
 
         $response->assertRedirect("/posts?page=7");
@@ -94,7 +94,7 @@ class PostsTest extends TestCase
         $post = factory(Post::class)->create(['status' => Post::STATUS_PENDING]);
 
 
-        $response = $this->from("/posts?page=2?search=test")->delete("/posts/{$post->id}");
+        $response = $this->from("/posts?page=2?search=test")->delete("/posts/{$post->id}/deny");
 
 
         $response->assertRedirect("/posts?page=2?search=test");
