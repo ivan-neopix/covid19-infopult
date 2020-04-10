@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\Transliterator;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
 
@@ -22,5 +23,14 @@ class Tag extends Model
     public function getTagAttribute()
     {
         return "#{$this->name}";
+    }
+
+    public function toSearchableArray()
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'bold' => with(new Transliterator())->transliterate($this->name),
+        ];
     }
 }
