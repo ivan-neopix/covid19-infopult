@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Admin;
 
+use App\Models\Category;
 use App\Models\Post;
 use Carbon\CarbonImmutable;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -100,5 +101,95 @@ class PostsTest extends TestCase
         $response->assertRedirect("/posts?page=2?search=test");
         $response->assertSessionHas('success');
         $this->assertEquals(Post::STATUS_DECLINED, $post->refresh()->status);
+    }
+
+    /** @test */
+    public function admin_can_visit_the_edit_post_page()
+    {
+        $post = factory(Post::class)->create([
+            'status' => Post::STATUS_PENDING,
+        ]);
+
+
+        $response = $this->get("/posts/{$post->id}/edit");
+
+
+        $response->assertSuccessful();
+        $response->assertViewIs('admin.posts.edit');
+        $response->assertSee($post->title);
+        $response->assertSee($post->description);
+        $response->assertSee($post->link);
+    }
+
+    public function nonPendingStatuses()
+    {
+        return [
+            ['accepted'],
+            ['declined'],
+        ];
+    }
+
+    /**
+     * @test
+     * @dataProvider nonPendingStatuses
+     */
+    public function admin_cannot_visit_the_edit_post_page_for_non_pending_tags($status)
+    {
+        $post = factory(Post::class)->create([
+            'status' => $status,
+        ]);
+
+
+        $response = $this->get("/posts/{$post->id}/edit");
+
+
+        $response->assertRedirect("/de-si-poso/posts");
+        $response->assertSessionHas('error');
+    }
+
+    /** @test */
+    public function admin_can_update_posts()
+    {
+        $oldCategory = factory(Category::class)->create();
+        $newCategory = factory(Category::class)->create();
+        $post = factory(Post::class)->create([
+            'category_id' => $oldCategory->id,
+        ]);
+
+
+        $response = $this->patch("/posts/{$post->id}", [
+            'category_id' => $newCategory->id,
+            'tags' => 'test1 test2 test3'
+        ]);
+
+
+        $response->assertRedirect("/de-si-poso/posts");
+        $response->assertSessionHas('success');
+        $this->assertEquals($newCategory->id, $post->refresh()->category_id);
+        $this->assertEquals($post->tags->pluck('name')->implode(' '), 'test1 test2 test3');
+    }
+
+    /**
+     * @test
+     * @dataProvider nonPendingStatuses
+     */
+    public function admin_cannot_update_non_pending_posts($status)
+    {
+        $category = factory(Category::class)->create();
+        $post = factory(Post::class)->create([
+            'status' => $status,
+            'category_id' => $category->id,
+        ]);
+
+
+        $response = $this->patch("/posts/{$post->id}", [
+            'category_id' => factory(Category::class)->create()->id,
+            'tags' => 'test1 test2',
+        ]);
+
+
+        $response->assertRedirect("/de-si-poso/posts");
+        $response->assertSessionHas('error');
+        $this->assertEquals($category->id, $post->refresh()->category_id);
     }
 }
