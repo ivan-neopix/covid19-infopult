@@ -46,7 +46,8 @@ export default class Tags {
     }
 
     init () {
-        const whitelist = this.output.value.split(' ').map(el => ({value: el.toLowerCase(), bold: el.toLowerCase().replace(/[ćčšđž]/g, m => stripCharacters[m])}));
+        const initialTags = this.output.value;
+        const whitelist = initialTags ? initialTags.split(' ').map(el => ({value: el.toLowerCase(), bold: el.toLowerCase().replace(/[ćčšđž]/g, m => stripCharacters[m])})) : [];
 
         this.tagify = new Tagify(
             this.input,
