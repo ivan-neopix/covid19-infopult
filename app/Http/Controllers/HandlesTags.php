@@ -16,7 +16,7 @@ trait HandlesTags
 
         $newTags = $tags->diff($existingTags->pluck('name'));
         Tag::insert($newTags->map(function ($tagName) {
-            return ['name' => $tagName];
+            return ['name' => strtolower($tagName)];
         })->toArray());
 
         Tag::whereIn('name', $newTags)->searchable();
