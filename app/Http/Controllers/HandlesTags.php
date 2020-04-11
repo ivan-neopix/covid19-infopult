@@ -12,10 +12,8 @@ trait HandlesTags
     protected function prepareTagIds(Request $request): Collection
     {
         $tags = collect(explode(' ', $request->input('tags')))->map(function (string $tagName) { return mb_strtolower($tagName); })->unique();
-
-        $existingTags = Tag::whereIn('name', $tags)->get();
-
-        $newTags = $tags->diff($existingTags->pluck('name'));
+        
+        $newTags = $tags->diff(Tag::whereIn('name', $tags)->pluck('name'));
         Tag::insert($newTags->map(function ($tagName) {
             return ['name' => $tagName];
         })->toArray());
