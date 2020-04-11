@@ -7,7 +7,7 @@
         <h6 class="card-subtitle mb-2 text-muted">{{ $tags }}</h6>
         <p class="card-text with-line-breaks">{{ $post->description }}</p>
         @if($hasLink)
-            <a href="{{ $post->link }}" class="card-link">Više informacija</a>
+            <a href="{{ $post->link }}" class="card-link" target="_blank">Više informacija</a>
         @else
             <p class="card-text">Kontakt: {{ $post->link }}</p>
         @endif
