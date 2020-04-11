@@ -5,7 +5,7 @@
             <span class="float-right font-italic text-muted h6">{{ $post->created_at->format('d.m.Y H:i') }}</span>
         </h5>
         <h6 class="card-subtitle mb-2 text-muted">{{ $tags }}</h6>
-        <p class="card-text">{{ $post->description }}</p>
+        <p class="card-text with-line-breaks">{{ $post->description }}</p>
         @if($hasLink)
             <a href="{{ $post->link }}" class="card-link">Više informacija</a>
         @else
