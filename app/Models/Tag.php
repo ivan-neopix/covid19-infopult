@@ -17,7 +17,7 @@ class Tag extends Model
 
     public function setNameAttribute(string $name)
     {
-        $this->attributes['name'] = str_replace(' ', '_', $name);
+        $this->attributes['name'] = strtolower(str_replace(' ', '_', $name));
     }
 
     public function getTagAttribute()
