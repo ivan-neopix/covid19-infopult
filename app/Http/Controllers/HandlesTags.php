@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewTagsCreated;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -10,14 +11,18 @@ trait HandlesTags
 {
     protected function prepareTagIds(Request $request): Collection
     {
-        $tags = collect(explode(' ', $request->input('tags')));
+        $tags = collect(explode(' ', $request->input('tags')))->map(function (string $tagName) { return mb_strtolower($tagName); })->unique();
 
         $existingTags = Tag::whereIn('name', $tags)->get();
 
         $newTags = $tags->diff($existingTags->pluck('name'));
         Tag::insert($newTags->map(function ($tagName) {
-            return ['name' => strtolower($tagName)];
+            return ['name' => $tagName];
         })->toArray());
+
+        if ($newTags->isNotEmpty()) {
+            NewTagsCreated::dispatch($newTags);
+        }
 
         Tag::whereIn('name', $newTags)->searchable();
 
