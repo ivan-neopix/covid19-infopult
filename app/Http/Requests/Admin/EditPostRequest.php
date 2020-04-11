@@ -29,4 +29,12 @@ class EditPostRequest extends FormRequest
             'tags' => ['required', 'string'],
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'category_id' => 'kategorija',
+            'tags' => 'tagovi',
+        ];
+    }
 }

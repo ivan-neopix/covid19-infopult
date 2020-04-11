@@ -38,4 +38,11 @@ class CategoryRequest extends FormRequest
             ],
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'name' => 'naziv',
+        ];
+    }
 }

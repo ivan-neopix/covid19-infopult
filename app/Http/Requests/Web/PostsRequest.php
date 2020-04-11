@@ -32,4 +32,15 @@ class PostsRequest extends FormRequest
             'tags' => ['required', 'string'],
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'title' => 'naziv',
+            'description' => 'opis',
+            'link' => 'link/kontakt',
+            'category_id' => 'kategorija',
+            'tags' => 'tagovi',
+        ];
+    }
 }

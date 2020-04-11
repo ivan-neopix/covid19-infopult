@@ -31,4 +31,13 @@ class FilterPostsRequest extends FormRequest
             'per_page' => 'nullable|integer',
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'search' => 'pretraga',
+            'tags' => 'tagovi',
+            'category' => 'kategorija',
+        ];
+    }
 }

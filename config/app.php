@@ -80,7 +80,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'sr',
 
     /*
     |--------------------------------------------------------------------------
@@ -229,7 +229,7 @@ return [
 
     ],
 
-    'web_domain' => env('WEB_DOMAIN', 'infopult.rs'),
-    'admin_domain' => env('ADMIN_DOMAIN', 'admin.infopult.rs'),
+    'web_domain' => env('WEB_DOMAIN', 'infopult.sr'),
+    'admin_domain' => env('ADMIN_DOMAIN', 'admin.infopult.sr'),
 
 ];
