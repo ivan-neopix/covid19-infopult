@@ -194,9 +194,7 @@ class AuthTest extends TestCase
 
 
         $response->assertRedirect("/de-si-poso/reset-password");
-        $response->assertSessionHasErrors([
-            'email' => 'This password reset token is invalid.',
-        ]);
+        $response->assertSessionHasErrors('email');
         $this->assertFalse(Hash::check('newPassword', $this->admin->refresh()->password));
     }
 }

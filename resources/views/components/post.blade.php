@@ -30,6 +30,7 @@
                 <a href="{{ route('admin.posts.edit', $post) }}" class="btn btn-primary w-100">Izmeni</a>
             @else
                 <span class="post-status-{{ $post->status }}">{{ __("post.status.{$post->status}") }}</span>
+                <a href="{{ route('admin.posts.edit', $post) }}" class="btn btn-primary w-100 mt-2">Izmeni</a>
             @endif
         </div>
     @endif

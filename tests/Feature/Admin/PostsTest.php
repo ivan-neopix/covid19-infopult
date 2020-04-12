@@ -121,32 +121,6 @@ class PostsTest extends TestCase
         $response->assertSee($post->link);
     }
 
-    public function nonPendingStatuses()
-    {
-        return [
-            ['accepted'],
-            ['declined'],
-        ];
-    }
-
-    /**
-     * @test
-     * @dataProvider nonPendingStatuses
-     */
-    public function admin_cannot_visit_the_edit_post_page_for_non_pending_tags($status)
-    {
-        $post = factory(Post::class)->create([
-            'status' => $status,
-        ]);
-
-
-        $response = $this->get("/posts/{$post->id}/edit");
-
-
-        $response->assertRedirect("/de-si-poso/posts");
-        $response->assertSessionHas('error');
-    }
-
     /** @test */
     public function admin_can_update_posts()
     {
@@ -167,29 +141,5 @@ class PostsTest extends TestCase
         $response->assertSessionHas('success');
         $this->assertEquals($newCategory->id, $post->refresh()->category_id);
         $this->assertEquals($post->tags->pluck('name')->implode(' '), 'test1 test2 test3');
-    }
-
-    /**
-     * @test
-     * @dataProvider nonPendingStatuses
-     */
-    public function admin_cannot_update_non_pending_posts($status)
-    {
-        $category = factory(Category::class)->create();
-        $post = factory(Post::class)->create([
-            'status' => $status,
-            'category_id' => $category->id,
-        ]);
-
-
-        $response = $this->patch("/posts/{$post->id}", [
-            'category_id' => factory(Category::class)->create()->id,
-            'tags' => 'test1 test2',
-        ]);
-
-
-        $response->assertRedirect("/de-si-poso/posts");
-        $response->assertSessionHas('error');
-        $this->assertEquals($category->id, $post->refresh()->category_id);
     }
 }

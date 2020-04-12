@@ -61,11 +61,6 @@ class PostsController extends Controller
 
     public function edit(Post $post)
     {
-        if (!$post->isPending()) {
-            return redirect()->route('admin.posts.index')
-                ->with('error', 'Nije moguće menjati postove koji nisu više na čekanju.');
-        }
-
         $categories = Category::all();
 
         return view('admin.posts.edit', compact('post', 'categories'));
@@ -73,11 +68,6 @@ class PostsController extends Controller
 
     public function update(EditPostRequest $request, Post $post)
     {
-        if (!$post->isPending()) {
-            return redirect()->route('admin.posts.index')
-                ->with('error', 'Nije moguće menjati postove koji nisu više na čekanju.');
-        }
-
         $post->category_id = $request->input('category_id');
         $post->tags()->sync($this->prepareTagIds($request));
 
