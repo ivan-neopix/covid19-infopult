@@ -22,6 +22,7 @@ trait HandlesTags
             NewTagsCreated::dispatch($newTags);
         }
 
+        Tag::whereIn('name', $newTags)->searchable();
 
         $query = Tag::query();
         $collatedTags = $tags->map(function (string $tagName) use ($query) {
