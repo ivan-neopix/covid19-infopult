@@ -17,7 +17,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-86777956-5"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=<?php echo env("GOOGLE_ANALYTICS_ID", "") ?>"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
