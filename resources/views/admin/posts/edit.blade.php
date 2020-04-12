@@ -70,7 +70,7 @@
                                 <div class="col-md-6">
                                     <input id="tags-output" type="hidden" name="tags" value="{{ old('tags', $post->tags->pluck('name')->implode(' ')) }}">
                                     <input id="tags-input" type="text" class="@error('tags') is-invalid @enderror"
-                                           value="{{ old('tags', $post->tags->pluck('name')->implode(' ')) }}" data-role="tagsinput">
+                                           value="{{ old('tags', $post->tags->pluck('name')->implode(' ')) }}" data-role="tagsinput" data-type="create">
 
                                     @error('tags')
                                     <span class="invalid-feedback" role="alert">
