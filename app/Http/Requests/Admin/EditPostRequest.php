@@ -25,6 +25,9 @@ class EditPostRequest extends FormRequest
     public function rules()
     {
         return [
+            'title' => ['required', 'string', 'max:255'],
+            'description' => ['required', 'string', 'max:800'],
+            'link' => ['required', 'string', 'max:255'],
             'category_id' => ['required', 'integer', 'bail', Rule::exists('categories', 'id')],
             'tags' => ['required', 'string'],
         ];

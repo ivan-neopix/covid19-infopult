@@ -68,6 +68,9 @@ class PostsController extends Controller
 
     public function update(EditPostRequest $request, Post $post)
     {
+        $post->title = $request->input('title');
+        $post->description = $request->input('description');
+        $post->link = $request->input('link');
         $post->category_id = $request->input('category_id');
         $post->tags()->sync($this->prepareTagIds($request));
 

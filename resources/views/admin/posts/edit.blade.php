@@ -21,7 +21,14 @@
                                 <label for="title" class="col-md-4 col-form-label text-md-right">Naslov</label>
 
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" name="title" value="{{ $post->title }}" disabled>
+                                    <input type="text" class="form-control @error('title') is-invalid @enderror"
+                                           name="title" value="{{ old('title', $post->title) }}" autofocus>
+
+                                    @error('title')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -29,7 +36,16 @@
                                 <label for="description" class="col-md-4 col-form-label text-md-right">Opis</label>
 
                                 <div class="col-md-6">
-                                    <textarea type="text" class="form-control" name="description"  disabled>{{ $post->description }}</textarea>
+                                    <textarea type="text"
+                                              class="form-control @error('description') is-invalid @enderror"
+                                              name="description"
+                                              value="{{ old('description') }}">{{ old('description', $post->description) }}</textarea>
+
+                                    @error('description')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -37,8 +53,14 @@
                                 <label for="link" class="col-md-4 col-form-label text-md-right">Link/kontakt</label>
 
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" name="link" value="{{ $post->link }}" disabled>
+                                    <input type="text" class="form-control @error('link') is-invalid @enderror"
+                                           name="link" value="{{ old('link', $post->link) }}">
 
+                                    @error('link')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
 
