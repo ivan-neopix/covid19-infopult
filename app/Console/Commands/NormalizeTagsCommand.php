@@ -20,15 +20,17 @@ class NormalizeTagsCommand extends Command
 
     public function handle()
     {
-        $tags = Tag::all();
-
         $this->info("Converting uppercase tags to lowercase");
         $convertedCount = $this->convertToLowercase();
         $this->info("Converted {$convertedCount} tags to lowercase\n");
 
+        $tags = Tag::all();
         $this->info("Removing duplicate tags.");
-        $removedCount = $this->removeDuplicates($tags);
+        $removedCount = $this->removeTagDuplicates($tags);
         $this->info("Removed {$removedCount} duplicates");
+
+        $this->info("Removing duplicate post-tag connections.");
+        $this->removePostTagDuplicates();
     }
 
     private function convertToLowercase()
@@ -40,13 +42,13 @@ class NormalizeTagsCommand extends Command
         ]);
     }
 
-    private function removeDuplicates(Collection $tags)
+    private function removeTagDuplicates(Collection $tags)
     {
         $keyedById = $tags->keyBy('id');
 
         $filtered = $tags->keyBy(function (Tag $tag) { return strtolower($tag->name); });
-        $filtered->each(function (Tag $original) use ($keyedById) {
-            $duplicates = $keyedById->except($original->id)->where('name', $original->name);
+        $filtered->each(function (Tag $original, String $name) use ($keyedById) {
+            $duplicates = $keyedById->except($original->id)->where('name', $name);
 
             if ($duplicates->isEmpty()) {
                 return;
@@ -58,5 +60,13 @@ class NormalizeTagsCommand extends Command
         });
 
         return $tags->count() - $keyedById->count();
+    }
+
+    private function removePostTagDuplicates()
+    {
+        $sql = 'DELETE pt1 FROM post_tag as pt1 JOIN post_tag as pt2 ON (pt1.post_id = pt2.post_id AND' .
+            ' pt1.tag_id = pt2.tag_id) AND pt1.id > pt2.id';
+
+        DB::statement($sql);
     }
 }
