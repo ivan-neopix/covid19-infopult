@@ -36,6 +36,10 @@ class CategoryRequest extends FormRequest
                 'max:255',
                 $nameUniqueRule,
             ],
+            'image' => [
+                'image',
+                'mimes:svg'
+            ]
         ];
     }
 

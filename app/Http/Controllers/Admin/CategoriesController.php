@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CategoryRequest;
 use App\Models\Category;
+use Illuminate\Support\Str;
 
 class CategoriesController extends Controller
 {
@@ -14,7 +15,7 @@ class CategoriesController extends Controller
                               ->orderBy('name', 'asc')
                               ->withCount('posts')
                               ->paginate(10);
-        
+
         return view('admin.categories.index', compact('categories'));
     }
 
@@ -29,7 +30,21 @@ class CategoriesController extends Controller
     {
         $category = new Category();
 
-        $category->name = $request->input('name');
+        // Added this in here not in the request because I didn't want to make
+        // a new request for edit because there this is not required
+        if (!$request->hasFile('image')) {
+            return redirect()->route('admin.categories.create')
+                ->withInput($request->input())
+                ->withErrors(['image' => 'Polje slika je obavezno']);
+        }
+
+        $categoryName = $request->input('name');
+        $imageFilename = $this->generateFileName($categoryName);
+
+        $request->file('image')->move(public_path('uploads'), $imageFilename);
+
+        $category->name = $categoryName;
+        $category->image = $imageFilename;
 
         $category->save();
 
@@ -47,7 +62,17 @@ class CategoriesController extends Controller
 
     public function update(CategoryRequest $request, Category $category)
     {
-        $category->name = $request->input('name');
+        $categoryName = $request->input('name');
+        $category->name = $categoryName;
+
+        // Update image if it exists
+        if ($request->hasFile('image')) {
+            $imageFilename = $this->generateFileName($categoryName);
+
+            $request->file('image')->move(public_path('uploads'), $imageFilename);
+
+            $category->image = $imageFilename;
+        }
 
         $category->update();
 
@@ -62,5 +87,13 @@ class CategoriesController extends Controller
 
         return redirect()->route('admin.categories.index')
             ->with('success', 'Kategorija uspešno izbrisana.');
+    }
+
+    private function generateFileName($name)
+    {
+        return implode('-', [
+                Str::slug($name),
+                date('YmdHis'),
+            ]) . '.svg';
     }
 }

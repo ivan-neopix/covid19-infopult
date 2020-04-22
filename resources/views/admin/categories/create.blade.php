@@ -13,7 +13,7 @@
                     <div class="card-header">Dodaj kategoriju</div>
 
                     <div class="card-body">
-                        <form action="{{ route('admin.categories.store') }}" method="POST">
+                        <form action="{{ route('admin.categories.store') }}" enctype="multipart/form-data" method="POST">
                             @csrf
 
                             @include('admin.categories.partials.fields')

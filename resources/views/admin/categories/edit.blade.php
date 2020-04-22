@@ -13,7 +13,7 @@
             <div class="col-sm-8">
                 <div class="card">
                     <div class="card-body">
-                        <form action="{{ route('admin.categories.update', $category) }}" method="POST">
+                        <form action="{{ route('admin.categories.update', $category) }}" enctype="multipart/form-data" method="POST">
                             @csrf
                             @method('PUT')
 
