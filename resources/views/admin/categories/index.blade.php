@@ -18,7 +18,9 @@
                     @foreach($categories as $category)
                         <li class="list-group-item justify-content-between d-flex align-items-center">
                             <a class="card-link"
-                               href="{{ route('admin.categories.edit', $category) }}">{{ $category->name }}
+                               href="{{ route('admin.categories.edit', $category) }}">
+                                <img src="{{ $category->image }}" height="22"/>
+                                {{ $category->name }}
                                 ({{ $category->posts_count }})</a>
                             <form action="{{ route('admin.categories.destroy', $category) }}" method="POST" class="position-absolute">
                                 @csrf
