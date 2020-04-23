@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class Category extends Model
 {
@@ -19,10 +20,13 @@ class Category extends Model
         return $value ? asset('uploads/' . $value) : '';
     }
 
+    public function getSlugAttribute()
+    {
+        return Str::slug($this->name, '-');
+    }
+
     public function getImageContentsAttribute()
     {
-        if (is_file($this->image)) {
-            return file_get_contents($this->image);
-        }
+        return file_get_contents($this->image);
     }
 }
