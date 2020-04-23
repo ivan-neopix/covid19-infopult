@@ -85,4 +85,9 @@ class PostsController extends Controller
         return redirect()->route('homepage')
             ->with('success', 'Vaša objava je kreirana i biće objavljena kada je administratori odobre.');
     }
+
+    public function offline()
+    {
+        return view('web.offline');
+    }
 }
