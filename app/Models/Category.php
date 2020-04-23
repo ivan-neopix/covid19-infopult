@@ -18,4 +18,11 @@ class Category extends Model
     {
         return $value ? asset('uploads/' . $value) : '';
     }
+
+    public function getImageContentsAttribute()
+    {
+        if (is_file($this->image)) {
+            return file_get_contents($this->image);
+        }
+    }
 }
