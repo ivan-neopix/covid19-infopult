@@ -1,8 +1,12 @@
-const CACHE = "ostani-kod-kuce-offline";
-
 importScripts('https://storage.googleapis.com/workbox-cdn/releases/5.0.0/workbox-sw.js');
 
+const JS_CACHE = "javascript";
+const STYLE_CACHE = "stylesheets";
+const IMAGE_CACHE = "images";
+const FONT_CACHE = "fonts";
+
 const offlineFallbackPage = "offline";
+const CACHE = "ostani-kuci-npx-cache";
 
 self.addEventListener("message", (event) => {
     if (event.data && event.data.type === "SKIP_WAITING") {
@@ -17,16 +21,57 @@ self.addEventListener('install', async (event) => {
     );
 });
 
+workbox.routing.registerRoute(
+    ({event}) => event.request.destination === 'script',
+    new workbox.strategies.StaleWhileRevalidate({
+        cacheName: JS_CACHE,
+        plugins: [
+            new workbox.expiration.ExpirationPlugin({
+                maxEntries: 15,
+            }),
+        ],
+    })
+);
+
+workbox.routing.registerRoute(
+    ({event}) => event.request.destination === 'style',
+    new workbox.strategies.StaleWhileRevalidate({
+        cacheName: STYLE_CACHE,
+        plugins: [
+            new workbox.expiration.ExpirationPlugin({
+                maxEntries: 15,
+            }),
+        ],
+    })
+);
+
+workbox.routing.registerRoute(
+    ({event}) => event.request.destination === 'image',
+    new workbox.strategies.StaleWhileRevalidate({
+        cacheName: IMAGE_CACHE,
+        plugins: [
+            new workbox.expiration.ExpirationPlugin({
+                maxEntries: 15,
+            }),
+        ],
+    })
+);
+
+workbox.routing.registerRoute(
+    ({event}) => event.request.destination === 'font',
+    new workbox.strategies.StaleWhileRevalidate({
+        cacheName: FONT_CACHE,
+        plugins: [
+            new workbox.expiration.ExpirationPlugin({
+                maxEntries: 15,
+            }),
+        ],
+    })
+);
+
 if (workbox.navigationPreload.isSupported()) {
     workbox.navigationPreload.enable();
 }
-
-workbox.routing.registerRoute(
-    new RegExp('/*'),
-    new workbox.strategies.StaleWhileRevalidate({
-        cacheName: CACHE
-    })
-);
 
 self.addEventListener('fetch', (event) => {
     if (event.request.mode === 'navigate') {
@@ -38,12 +83,15 @@ self.addEventListener('fetch', (event) => {
                     return preloadResp;
                 }
 
-                return await fetch(event.request);
+                const networkResp = await fetch(event.request);
+                return networkResp;
             } catch (error) {
 
                 const cache = await caches.open(CACHE);
-                return await cache.match(offlineFallbackPage);
+                const cachedResp = await cache.match(offlineFallbackPage);
+                return cachedResp;
             }
         })());
     }
 });
+
