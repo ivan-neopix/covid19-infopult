@@ -34,7 +34,11 @@
 <meta property="twitter:description" content="{{ config('meta.description') }}">
 <meta property="twitter:image" content="{{ config('meta.image') }}">
 
-<script src="{{ asset('js/init.js') }}"></script>
+<script>
+    @php
+        echo file_get_contents(asset('js/init.js'));
+    @endphp
+</script>
 
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
