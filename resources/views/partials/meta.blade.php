@@ -25,14 +25,14 @@
 <meta property="og:url" content="{{ url('') }}">
 <meta property="og:title" content="@yield('page_title') | {{ config('app.name') }}">
 <meta property="og:description" content="{{ config('meta.description') }}">
-<meta property="og:image" content="{{ config('meta.image') }}">
+<meta property="og:image" content="{{ asset(config('meta.image')) }}">
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image">
 <meta property="twitter:url" content="{{ url('') }}">
 <meta property="twitter:title" content="@yield('page_title') | {{ config('app.name') }}">
 <meta property="twitter:description" content="{{ config('meta.description') }}">
-<meta property="twitter:image" content="{{ config('meta.image') }}">
+<meta property="twitter:image" content="{{ asset(config('meta.image')) }}">
 
 <script>
     @php
