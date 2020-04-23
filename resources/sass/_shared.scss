@@ -1,0 +1,185 @@
+@import "variables";
+@import "functions/functions";
+@import "tagify";
+
+%flex { display: flex; }
+%flex-v-center {
+    display: flex;
+    align-items: center;
+}
+%flex-v-center-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+@include generateColors;
+
+*,
+*:after,
+*:before {
+    box-sizing: border-box;
+}
+
+
+html, body {
+    padding: 0;
+    margin: 0;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+    color: color-assign(global-font-color);
+    background: color-assign(global-background-color);
+    min-height: 100vh;
+}
+
+body {
+    padding-top: 74px;
+    padding-bottom: $spacer-7;
+}
+
+section { position: relative; }
+
+#rezultati {
+    position: absolute;
+    left: 0;
+    top: -72px;
+}
+
+a {
+    color: color-assign(global-font-color);
+    text-decoration: none;
+}
+
+a[target='blank'],
+a[target] {
+    &::after {
+        content: '\01F86D';
+        font-size: 14px;
+    }
+}
+
+.icon {
+    fill: currentColor;
+    width: 1em;
+    height: 1em;
+    vertical-align: middle;
+    overflow: hidden;
+}
+
+
+// IE11 support
+main { display: block; }
+
+.container {
+    max-width: $global-container-width - 2 * $global-container-padding;
+    margin: 0 auto;
+    padding: 0 $global-container-padding;
+}
+
+// ------------------- Header
+
+.site-header {
+    @include fixed(top 0 left 0);
+    width: 100%;
+    background: color-assign(header-background-color);
+    padding: $spacer-3 0;
+    @include z-index(navigation);
+
+    &__logo {
+        display: none;
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+    &__button {
+        &-plus {
+            margin-right: $spacer-2;
+            line-height: 0;
+        }
+    }
+}
+
+// ------------------ Button
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    height: $button-height;
+    padding: 0 $spacer-5;
+
+    border-radius: $global-border-radius;
+    border: 0;
+
+    transition: background-color .3s ease-in-out, color .3s ease-in-out;
+
+    background-color: color-assign(button-background-color);
+
+    color: color-assign(button-font-color);
+    font-weight: bold;
+    cursor: pointer;
+
+    &:focus, &:hover {
+        background-color: color-assign(button-hover-background-color);
+        color: color-assign(button-hover-font-color);
+    }
+}
+
+// SVG Coloring
+
+.st0 {
+    fill: color-assign(brand-primary);
+}
+.st1 {
+    fill: #005a89
+}
+.st2 {
+    opacity: .5;
+    fill: #fff
+}
+.st4 {
+    fill: #cbcbcb
+}
+.st6 {
+    fill: #010103
+}
+.st8 {
+    fill: #fff
+}
+
+.hero {
+    padding: fluid-size($spacer-4, $spacer-7);
+
+    border-radius: $global-border-radius;
+
+    background-color: color-assign(brand-primary);
+
+    color: #fff;
+
+    &__info { padding-right: $spacer-3; }
+    &__image {
+        padding-top: fluid-size($spacer-4, $spacer-7);
+    }
+
+    &__title {
+        @include fluid-type(32px, 64px);
+        margin-bottom: $spacer-3;
+    }
+}
+
+.offline {
+    &, .site-header { background: color-assign(brand-primary); }
+    .hero { padding: 0; }
+}
+
+@include tablet-up {
+    .hero {
+        display: flex;
+        align-items: flex-end;
+
+        &__image {
+            flex-shrink: 0;
+            width: 50%;
+        }
+    }
+}
+

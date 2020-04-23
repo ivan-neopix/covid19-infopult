@@ -1,0 +1,7 @@
+
+/**
+  * Given a grid layout select nth column.
+ */
+@mixin nth-column($columns, $column) {
+  &:nth-child(#{$columns}n-#{$columns - $column}) { @content }
+}

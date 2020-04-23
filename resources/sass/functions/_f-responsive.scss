@@ -1,0 +1,21 @@
+$responsive-lg: 1280px;
+$responsive-md: 1024px;
+$responsive-sm: 768px;
+$responsive-xs: 568px;
+$responsive-xxs: 375px;
+
+@mixin laptop-up {
+    @media (min-width: $responsive-lg) { @content; }
+}
+
+@mixin tablet-up {
+    @media (min-width: $responsive-sm) { @content; }
+}
+
+@mixin phablet-up {
+    @media (min-width: $responsive-xs) { @content; }
+}
+
+@mixin tablet-below {
+    @media (max-width: $responsive-sm - 1) { @content; }
+}

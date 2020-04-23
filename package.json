@@ -12,6 +12,8 @@
     "devDependencies": {
         "axios": "^0.19",
         "bootstrap": "^4.0.0",
+        "browser-sync": "^2.26.7",
+        "browser-sync-webpack-plugin": "^2.0.1",
         "cross-env": "^7.0",
         "jquery": "^3.2",
         "laravel-mix": "^5.0.1",
@@ -23,8 +25,10 @@
         "vue-template-compiler": "^2.6.11"
     },
     "dependencies": {
+        "@pwabuilder/pwaupdate": "^0.1.0",
         "@yaireo/tagify": "^3.6.10",
         "algoliasearch": "^4.1.0",
-        "instantsearch.js": "^4.3.1"
+        "instantsearch.js": "^4.3.1",
+        "micromodal": "^0.4.6"
     }
 }

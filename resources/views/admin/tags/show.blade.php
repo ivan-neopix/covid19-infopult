@@ -18,7 +18,7 @@
 
             <div class="card-body">
                 @foreach($posts as $post)
-                    <x-post :post="$post" :forAdmin="true"/>
+                    <x-admin-post :post="$post" :forAdmin="true"/>
                 @endforeach
             </div>
 
