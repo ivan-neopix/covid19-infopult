@@ -3,7 +3,11 @@
 <head>
     @include('partials.meta')
 
-    <link href="{{ asset('css/create.css') }}" rel="stylesheet">
+    <style>
+        @php
+            echo file_get_contents(asset('css/create.css'));
+        @endphp
+    </style>
 </head>
 <body class="@yield('body_class')">
     <header class="site-header">
