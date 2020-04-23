@@ -2,5 +2,5 @@
 
 return [
     'description' => 'My site is better than yours',
-    'image' => asset('ostani-kuci.jpg'),
+    'image' => 'ostani-kuci.jpg',
 ];
