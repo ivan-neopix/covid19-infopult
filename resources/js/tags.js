@@ -72,7 +72,6 @@ export default class Tags {
     // Create the render function
     renderAutocomplete (renderOptions, isFirstRender) {
         const {indices, currentRefinement, refine} = renderOptions;
-
         if (isFirstRender) {
             this.tagify.on('input', e => {
                 if (e.detail.value.length > 2) {
