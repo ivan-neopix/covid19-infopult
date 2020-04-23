@@ -62,7 +62,7 @@
 
                 <div class="mt-4 justify-content-center">
                     @foreach($posts as $post)
-                        <x-admin-post :post="$post" :forAdmin="true"/>
+                        <x-admin-post :post="$post"/>
                     @endforeach
                 </div>
 

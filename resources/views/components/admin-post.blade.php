@@ -12,26 +12,24 @@
             <p class="card-text">Kontakt: {{ $post->link }}</p>
         @endif
     </div>
-    @if($forAdmin)
-        <div class="card-footer d-flex flex-column justify-content-center">
-            @if($post->status === \App\Models\Post::STATUS_PENDING)
-                <form action="{{ route('admin.posts.approve', $post) }}" method="POST" class="w-100">
-                    @csrf
-                    @method('PATCH')
+    <div class="card-footer d-flex flex-column justify-content-center">
+        @if($post->status === \App\Models\Post::STATUS_PENDING)
+            <form action="{{ route('admin.posts.approve', $post) }}" method="POST" class="w-100">
+                @csrf
+                @method('PATCH')
 
-                    <button type="submit" class="btn btn-success w-100 mb-2">Odobri</button>
-                </form>
-                <form action="{{ route('admin.posts.deny', $post) }}" method="POST" class="w-100">
-                    @csrf
-                    @method('DELETE')
+                <button type="submit" class="btn btn-success w-100 mb-2">Odobri</button>
+            </form>
+            <form action="{{ route('admin.posts.deny', $post) }}" method="POST" class="w-100">
+                @csrf
+                @method('DELETE')
 
-                    <button type="submit" class="btn btn-danger w-100 mb-2">Odbij</button>
-                </form>
-                <a href="{{ route('admin.posts.edit', $post) }}" class="btn btn-primary w-100">Izmeni</a>
-            @else
-                <span class="post-status-{{ $post->status }}">{{ __("post.status.{$post->status}") }}</span>
-                <a href="{{ route('admin.posts.edit', $post) }}" class="btn btn-primary w-100 mt-2">Izmeni</a>
-            @endif
-        </div>
-    @endif
+                <button type="submit" class="btn btn-danger w-100 mb-2">Odbij</button>
+            </form>
+            <a href="{{ route('admin.posts.edit', $post) }}" class="btn btn-primary w-100">Izmeni</a>
+        @else
+            <span class="post-status-{{ $post->status }}">{{ __("post.status.{$post->status}") }}</span>
+            <a href="{{ route('admin.posts.edit', $post) }}" class="btn btn-primary w-100 mt-2">Izmeni</a>
+        @endif
+    </div>
 </div>

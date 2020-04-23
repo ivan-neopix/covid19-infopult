@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\View\Components\AdminPostComponent;
 use App\View\Components\PostComponent;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Blade;
@@ -35,5 +36,6 @@ class AppServiceProvider extends ServiceProvider
     private function registerBladeComponents()
     {
         Blade::component('post', PostComponent::class);
+        Blade::component('admin-post', AdminPostComponent::class);
     }
 }
