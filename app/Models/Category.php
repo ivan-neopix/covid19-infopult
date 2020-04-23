@@ -27,8 +27,10 @@ class Category extends Model
 
     public function getImageContentsAttribute()
     {
-        if (is_file($this->image)) {
-            return file_get_contents($this->image);
+        $imagePath =  "./uploads/" . $this->getRawOriginal('image');
+
+        if (is_file($imagePath)) {
+            return file_get_contents($imagePath);
         }
     }
 }
