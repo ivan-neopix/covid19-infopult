@@ -3,7 +3,11 @@
 <head>
     @include('partials.meta')
 
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style>
+        @php
+            echo file_get_contents(asset('css/app.css'));
+        @endphp
+    </style>
 </head>
 <body>
     <pwa-update></pwa-update>

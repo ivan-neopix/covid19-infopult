@@ -29,11 +29,14 @@
 
         background-color: color-assign(card-background-color);
 
+        transition: background-color .3s ease-in-out;
+
         font-size: 14px;
         font-weight: bold;
         text-transform: uppercase;
     }
     &__icon {
+        transition: color .3s ease-in-out;
         font-size: 28px;
     }
 }
@@ -202,6 +205,17 @@
             border-radius: 50%;
             &-plus { margin: 0; }
             &-text { display: none; }
+        }
+    }
+}
+
+@each $category, $color in $categories {
+    .#{$category} {
+        &:hover,
+        &.badge,
+        &.category-grid__item--highlighted {
+            background-color: rgba($color, .2);
+            .category-grid__icon, .badge__icon { color: $color; }
         }
     }
 }
