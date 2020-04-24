@@ -47,7 +47,7 @@
             @endforeach
         </section>
 
-        {{ $posts->links() }}
+        {{ $posts->fragment('rezultati')->links() }}
     </div>
 
     <script type="text/javascript">
