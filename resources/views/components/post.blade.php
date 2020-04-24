@@ -10,12 +10,12 @@
                 </a>
             @endif
         </h1>
-        <span class="badge {{ $post->category->slug }}">
+        <a href="{{ route('homepage', ['category' => $post->category->id ]) }}#rezultati" class="badge {{ $post->category->slug }}">
             <span>{{ $post->category->name }}</span>
             <span class="badge__icon">
                 {!! $post->category->image_contents !!}
             </span>
-        </span>
+        </a>
     </header>
 
     <div class="card__content">
@@ -26,7 +26,11 @@
     </div>
 
     <footer class="card__footer">
-        <div>{{ $tags }}</div>
+        <div class="tags">
+            @foreach($tags as $tag)
+                <a href="{{ route('homepage', ['tags' => $tag->name ]) }}#rezultati" class="tags__link">#{{ $tag->name }}</a>
+            @endforeach
+        </div>
         <time datetime="{{ $post->created_at->format(DATE_W3C) }}">{{ $post->created_at->format('d.m.Y H:i') }}</time>
     </footer>
 </article>

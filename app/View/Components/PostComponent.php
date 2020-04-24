@@ -26,7 +26,7 @@ class PostComponent extends Component
 
     public function tags()
     {
-        return $this->post->tags->pluck('tag')->implode(' ');
+        return $this->post->tags;
     }
 
     public function hasLink()
