@@ -118,6 +118,7 @@ main { display: block; }
     background-color: color-assign(button-background-color);
 
     color: color-assign(button-font-color);
+    font: inherit;
     font-weight: bold;
     cursor: pointer;
 
