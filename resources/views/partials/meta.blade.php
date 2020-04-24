@@ -36,7 +36,7 @@
 
 <script>
     @php
-        echo file_get_contents(asset('js/init.js'));
+        echo file_get_contents(public_path('js/init.js'));
     @endphp
 </script>
 

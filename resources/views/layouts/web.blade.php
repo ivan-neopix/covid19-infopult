@@ -5,7 +5,7 @@
 
     <style>
         @php
-            echo file_get_contents(asset('css/app.css'));
+            echo file_get_contents(public_path('css/app.css'));
         @endphp
     </style>
 </head>
