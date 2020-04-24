@@ -26,7 +26,10 @@
 html, body {
     padding: 0;
     margin: 0;
-    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
     line-height: 1.6;
     color: color-assign(global-font-color);
     background: color-assign(global-background-color);
@@ -108,7 +111,7 @@ main { display: block; }
     padding: 0 $spacer-5;
 
     border-radius: $global-border-radius;
-    border: 0;
+    border: 1px solid transparent;
 
     transition: background-color .3s ease-in-out, color .3s ease-in-out;
 
@@ -121,6 +124,11 @@ main { display: block; }
     &:focus, &:hover {
         background-color: color-assign(button-hover-background-color);
         color: color-assign(button-hover-font-color);
+    }
+
+    &--clear {
+        background-color: transparent;
+        border: 1px solid color-assign(button-background-color);
     }
 }
 
