@@ -38,6 +38,7 @@
     &__icon {
         transition: color .3s ease-in-out;
         font-size: 28px;
+        line-height: 0;
     }
 }
 
@@ -66,6 +67,18 @@
         @extend %flex-v-center-between;
         color: #949494;
         font-size: 14px;
+
+        time { margin-left: $spacer-4; }
+    }
+}
+
+.tags {
+    &__link {
+        color: #949494;
+
+        &:hover { text-decoration: underline; }
+
+        & + & { margin-left: $spacer-2; }
     }
 }
 
