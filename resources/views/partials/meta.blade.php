@@ -1,8 +1,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link rel="preconnect dns-prefetch" href="https://www.googletagmanager.com">
-<link rel="preconnect dns-prefetch" href="https://storage.googleapis.com">
+<link rel="preconnect dns-prefetch" href="https://www.googletagmanager.com" crossorigin />
+<link rel="preconnect dns-prefetch" href="https://www.google-analytics.com" crossorigin />
+<link rel="preconnect dns-prefetch" href="https://storage.googleapis.com" crossorigin />
+<link rel="preconnect" href="https://<?php echo env('ALGOLIA_APP_ID', '') ?>-dsn.algolia.net" crossorigin />
 
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
