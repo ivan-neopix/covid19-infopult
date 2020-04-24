@@ -6,6 +6,7 @@
             @endif
             {{ $post->title }}
             @if($hasLink)
+                <svg class="icon"><use xlink:href="#i-external-link"></use></svg>
                 </a>
             @endif
         </h1>

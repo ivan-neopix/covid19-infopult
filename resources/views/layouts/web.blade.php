@@ -11,6 +11,11 @@
 </head>
 <body>
     <pwa-update></pwa-update>
+    <svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;">
+        <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14" id="i-external-link">
+            <path d="M11.764 3.199L5.44 9.523a.68.68 0 1 1-.963-.963l6.324-6.324h-1.76a.68.68 0 1 1 0-1.361h3.403a.68.68 0 0 1 .681.68v3.403a.68.68 0 0 1-1.361 0v-1.76zm0 4.482a.68.68 0 1 1 1.361 0v4.085a1.36 1.36 0 0 1-1.361 1.359H2.236a1.36 1.36 0 0 1-1.361-1.361V2.236A1.36 1.36 0 0 1 2.235.875h4.084a.68.68 0 1 1 0 1.361H2.236v9.528h9.528V7.68z"></path>
+        </symbol>
+    </svg>
     <header class="site-header">
         <div class="container site-header__container">
             <a class="site-header__logo" href="{{ url('/') }}">{{ config('app.name', 'Laravel') }}</a>
