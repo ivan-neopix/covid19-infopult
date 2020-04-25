@@ -29,7 +29,7 @@
                     </span>
                 </a>
                 @foreach ($categories as $item)
-                    <a href="{{ route('homepage', ['category' => $item->id ]) }}#rezultati" class="category-grid__item {{ $item->slug }} @if (old('category', $category) == $item->id) category-grid__item--highlighted @endif">
+                    <a href="{{ route('homepage', ['category' => $item->slug ]) }}#rezultati" class="category-grid__item {{ $item->slug }} @if (old('category', $category) == $item->slug) category-grid__item--highlighted @endif">
                         <span>{{ $item->name }}</span>
                         <span class="category-grid__icon">
                             {!! $item->image_contents !!}
