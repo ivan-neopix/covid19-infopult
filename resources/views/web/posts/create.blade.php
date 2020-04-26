@@ -13,7 +13,7 @@
             @csrf
 
             <div class="form-group">
-                <label for="title">Nasov</label>
+                <label for="title">Naslov</label>
                 <input type="text" class="form-control @error('title') is-invalid @enderror"
                        name="title" value="{{ old('title') }}" id="title" autofocus>
 
