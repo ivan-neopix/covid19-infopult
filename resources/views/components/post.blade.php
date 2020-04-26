@@ -10,7 +10,7 @@
                 </a>
             @endif
         </h1>
-        <a href="{{ route('homepage', ['category' => $post->category->slud ]) }}#rezultati" class="badge {{ $post->category->slug }}">
+        <a href="{{ route('homepage', ['category' => $post->category->slug ]) }}#rezultati" class="badge {{ $post->category->slug }}">
             <span>{{ $post->category->name }}</span>
             <span class="badge__icon">
                 {!! $post->category->image_contents !!}
