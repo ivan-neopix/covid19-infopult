@@ -75,6 +75,7 @@
 
     &__content {
         color: color-assign(card-content-font-color);
+        white-space: pre-line;
     }
 
     &__footer {
