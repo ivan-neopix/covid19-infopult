@@ -1,11 +1,11 @@
 @import "shared";
 
-
 .heading-line {
     @extend %flex-v-center;
-    margin: fluid-size($spacer-4, $spacer-6) 0;
+    margin: fluid-size($spacer-4, $spacer-6) 0 fluid-size($spacer-2, $spacer-4);
     color: color-assign(line-header-font-color);
     font-size: 16px;
+    font-weight: 500;
     line-height: 1;
 
     &::after {
@@ -54,7 +54,7 @@
 
     &__title {
         margin: 0 0 $spacer-2;
-        font-size: fluid-size(18px, 22px);
+        font-size: fluid-size(18px, 20px);
 
         a:hover { text-decoration: underline; }
     }
@@ -76,7 +76,10 @@
     &__link {
         color: #949494;
 
-        &:hover { text-decoration: underline; }
+        &:hover {
+            text-decoration: underline;
+            color: #222;
+        }
 
         & + & { margin-left: $spacer-2; }
     }
@@ -180,12 +183,10 @@
         &__container {
             display: grid;
             grid-template-columns: auto 1fr auto;
-            grid-column-gap: 64px;
+            grid-column-gap: 24px;
             align-items: center;
         }
     }
-
-
     .category-grid {
         grid-template-columns: repeat(4, 1fr);
     }
@@ -208,18 +209,20 @@
 }
 
 @include tablet-below {
+    .container {
+        max-width: $global-container-width - $global-container-padding;
+        margin: 0 auto;
+        padding: 0 $global-container-padding / 2;
+    }
+
     .site-header {
         &__button {
-            @include fixed(bottom $global-container-padding right $global-container-padding);
+            @include fixed(bottom $global-container-padding / 2 right $global-container-padding / 2);
             display: flex;
             align-items: center;
             justify-content: center;
-            @include size(48px);
-            @include font-size(22px, 0);
-            padding: 0;
-            border-radius: 50%;
-            &-plus { margin: 0; }
-            &-text { display: none; }
+            @include font-size(12px, 0);
+            padding: 0 10px;
         }
     }
 }

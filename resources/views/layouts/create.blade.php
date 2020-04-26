@@ -12,7 +12,7 @@
 <body class="@yield('body_class')">
     <header class="site-header">
         <div class="container site-header__container">
-            <a class="site-header__logo" href="{{ url('/') }}">{{ config('app.name', 'Laravel') }}</a>
+            @include('partials.logo')
         </div>
     </header>
     <div class="flash">

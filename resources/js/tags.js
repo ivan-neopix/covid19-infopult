@@ -72,7 +72,6 @@ export default class Tags {
 
                 return `<div class="${className}" role="listbox" aria-labelledby="dropdown">
                   <div class="tagify__dropdown__wrapper"></div>
-                  <button class="tagify__dropdown__addNewBtn">add new</button>
               </div>`
             },
 

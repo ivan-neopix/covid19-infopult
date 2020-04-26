@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'description' => 'My site is better than yours',
+    'description' => 'Ostani kod kuće - skup korisnih informacija na jednom mestu.',
     'image' => 'ostani-kuci.jpg',
 ];

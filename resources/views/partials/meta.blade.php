@@ -43,6 +43,7 @@
     @endphp
 </script>
 
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=<?php echo env("GOOGLE_ANALYTICS_ID", "") ?>"></script>
