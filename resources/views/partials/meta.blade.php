@@ -1,14 +1,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link rel="preconnect dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect dns-prefetch" href="https://www.googletagmanager.com" crossorigin />
+<link rel="preconnect dns-prefetch" href="https://www.google-analytics.com" crossorigin />
+<link rel="preconnect dns-prefetch" href="https://storage.googleapis.com" crossorigin />
+<link rel="preconnect" href="https://<?php echo env('ALGOLIA_APP_ID', '') ?>-dsn.algolia.net" crossorigin />
 
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('/favicons/apple-touch-icon.png') }}">
 <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('/favicons/favicon-32x32.png') }}">
 <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('/favicons/favicon-16x16.png') }}">
-<link rel="manifest" href="{{ asset('/favicons/site.webmanifest') }}">
+<link rel="manifest" crossorigin="use-credentials" href="{{ asset('/favicons/site.webmanifest') }}">
 <link rel="mask-icon" href="{{ asset('/favicons/safari-pinned-tab.svg') }}" color="#000000'">
 <link rel="shortcut icon" href="{{ asset('/favicons/favicon.ico') }}">
 <meta name="msapplication-TileColor" content="#000000">
@@ -36,10 +39,11 @@
 
 <script>
     @php
-        echo file_get_contents(asset('js/init.js'));
+        echo file_get_contents(public_path('js/init.js'));
     @endphp
 </script>
 
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=<?php echo env("GOOGLE_ANALYTICS_ID", "") ?>"></script>

@@ -85,9 +85,10 @@
                 @enderror
             </div>
 
-
-            <button type="submit" class="button">Objavite</button>
-            <a href="{{ route('homepage') }}" class="btn btn-danger">Odustanite</a>
+            <div class="form__footer">
+                <button type="submit" class="button">Objavite</button>
+                <a href="{{ route('homepage') }}" class="link--clear">Odustanite</a>
+            </div>
         </form>
     </div>
 

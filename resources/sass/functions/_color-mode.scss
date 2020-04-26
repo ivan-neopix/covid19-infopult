@@ -12,13 +12,13 @@
         }
     }
 
-    @media (prefers-color-scheme: dark) {
-        :root {
-            @each $key, $value in map-get($colors, 'dark') {
-                #{compose-color-variable($key)}: #{$value};
-            }
-        }
-    }
+    //@media (prefers-color-scheme: dark) {
+    //    :root {
+    //        @each $key, $value in map-get($colors, 'dark') {
+    //            #{compose-color-variable($key)}: #{$value};
+    //        }
+    //    }
+    //}
 }
 
 @function str-replace($string, $search, $replace: '') {

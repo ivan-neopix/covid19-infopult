@@ -5,14 +5,14 @@
 
     <style>
         @php
-            echo file_get_contents(asset('css/create.css'));
+            echo file_get_contents(public_path('css/create.css'));
         @endphp
     </style>
 </head>
 <body class="@yield('body_class')">
     <header class="site-header">
         <div class="container site-header__container">
-            <a class="site-header__logo" href="{{ url('/') }}">{{ config('app.name', 'Laravel') }}</a>
+            @include('partials.logo')
         </div>
     </header>
     <div class="flash">

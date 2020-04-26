@@ -38,14 +38,16 @@ class PostsController extends Controller
             }
         }
 
-        if ($categoryId = $request->input('category')) {
-            $query->forCategory($categoryId);
+        if ($categorySlug = $request->input('category')) {
+            if ($category = Category::where(['slug' => $categorySlug])->first()) {
+                $query->forCategory($category->id);
+            }
         }
 
         $posts = $query->paginate($perPage = $request->input('per_page', 10))->appends([
             'search' => $searchTerm,
             'tags' => $tags,
-            'category' => $categoryId,
+            'category' => $categorySlug,
             'per_page' => $perPage,
         ]);
 
@@ -55,7 +57,7 @@ class PostsController extends Controller
             'posts' => $posts,
             'categories' => $categories,
             'searchTerm' => $searchTerm,
-            'category' => $categoryId,
+            'category' => $categorySlug,
             'tags' => $tags,
         ]);
     }

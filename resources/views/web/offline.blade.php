@@ -7,9 +7,9 @@
     <div class="container">
         <section class="hero">
             <div class="hero__info">
-                <h1 class="hero__title">Ostani kod kuće.</h1>
+                <h1 class="hero__title">Ostani kod kuće</h1>
                 <p class="hero__text">
-                    Treba neki tekst da se napise ovde. Kao jaooo znam da nemas neta ali ipak ostani kuci.
+                    Izgleda mreža opet zeza... Ostani kod kuće, sačekaj malo i bićeš uskoro ponovo online.
                 </p>
             </div>
             <div class="hero__image">

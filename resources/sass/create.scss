@@ -10,7 +10,7 @@ textarea,
 select,
 .tagify {
     border-radius: $global-border-radius;
-    border: 1px solid transparent;
+    border: 1px solid color-assign(line-header-border-color);
     background-color: color-assign(search-background-color);
     color: color-assign(search-font-color);
 }
@@ -26,6 +26,10 @@ select {
     box-shadow: none;
     font: inherit;
     appearance: none;
+}
+
+select {
+    line-height: 0;
 }
 
 .is-invalid {
