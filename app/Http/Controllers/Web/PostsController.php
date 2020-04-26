@@ -32,9 +32,9 @@ class PostsController extends Controller
             $existingTags = Tag::whereIn('name', $tagList)->get();
 
             if (count($existingTags) > 0) {
-                $query->whereHas('tags', function (Builder $query) use ($existingTags) {
+                $query->whereHas('tags', function (Builder $query) use ($existingTags, $tagList) {
                     $query->whereIn('tags.id', $existingTags->pluck('id'));
-                }, '=', count($existingTags));
+                }, '=', count($tagList));
             }
         }
 
