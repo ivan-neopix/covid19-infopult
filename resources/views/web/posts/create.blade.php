@@ -86,8 +86,8 @@
             </div>
 
             <div class="form__footer">
-                <button type="submit" class="button">Objavite</button>
-                <a href="{{ route('homepage') }}" class="link--clear">Odustanite</a>
+                <button type="submit" class="button">OBJAVITE</button>
+                <a href="{{ route('homepage') }}" class="link--clear">ODUSTANITE</a>
             </div>
         </form>
     </div>

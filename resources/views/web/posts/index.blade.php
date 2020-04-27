@@ -41,7 +41,7 @@
 
         <section>
             <a id="rezultati"></a>
-            <h2 class="heading-line">Najnovije objave</h2>
+            <h2 class="heading-line">Objave</h2>
             @foreach($posts as $post)
                 <x-post :post="$post"/>
             @endforeach
